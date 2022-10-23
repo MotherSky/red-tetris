@@ -1,4 +1,5 @@
 import "./App.css";
+import Controls from "./components/Controls";
 import GridBoard from "./components/GridBoard";
 import NextGrid from "./components/NextBlock";
 import ScoreBoard from "./components/ScoreBoard";
@@ -12,6 +13,7 @@ function App() {
       <GridBoard />
       <NextGrid />
       <ScoreBoard />
+      <Controls />
     </div>
   );
 }
