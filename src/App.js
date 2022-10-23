@@ -2,6 +2,7 @@ import "./App.css";
 import Controls from "./components/Controls";
 import GridBoard from "./components/GridBoard";
 import NextGrid from "./components/NextBlock";
+import Popup from "./components/Popup";
 import ScoreBoard from "./components/ScoreBoard";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <NextGrid />
       <ScoreBoard />
       <Controls />
+      <Popup />
     </div>
   );
 }
