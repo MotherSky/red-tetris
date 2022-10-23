@@ -1,6 +1,6 @@
 import React from "react";
 import GridSquare from "./GridSquare";
-import "./GridBoard.css";
+import "../App.css";
 // Representation of our 20*10 grid
 
 export default function GridBoard() {

@@ -1,6 +1,6 @@
 import React from "react";
 import GridSquare from "./GridSquare";
-import "./NextBlock.css";
+import "../App.css";
 
 export default function NextGrid(props) {
   const box = [
