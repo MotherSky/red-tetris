@@ -8,7 +8,7 @@ export default function GridBoard() {
   for (let row = 0; row < 20; row++) {
     grid.push([]);
     for (let col = 0; col < 10; col++) {
-      grid[row].push(<GridSquare key={`${row}-${col}`} color="0" />);
+      grid[row].push(<GridSquare key={`${row}-${col}`} color="3" />);
     }
   }
 
