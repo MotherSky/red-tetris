@@ -45,3 +45,37 @@ export const defaultState = () => {
     GameOver: false,
   };
 };
+
+// return the index of the next possible rotation
+
+export const nextRotation = (shape, rotation) => {
+  return (rotation + 1) % shapes[shape].length;
+};
+
+export const possibleMove = (shape, rotation, grid, x, y) => {
+  const currentShape = shapes[shape][rotation];
+  // loop through rows and cols of the shape
+  for (let row = 0; row < currentShape.length; row++) {
+    for (let col = 0; col < currentShape[row].length; col++) {
+      if (currentShape[row][col] !== 0) {
+        const proposedX = col + x;
+        const proposedY = row + y;
+        if (proposedY < 0) {
+          continue;
+        }
+        const possibleRow = grid[proposedY];
+        if (possibleRow) {
+          if (
+            possibleRow[proposedX] === undefined ||
+            possibleRow[proposedX] !== 0
+          ) {
+            return false;
+          } else {
+            return false;
+          }
+        }
+      }
+    }
+  }
+  return true;
+};

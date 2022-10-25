@@ -9,12 +9,17 @@ import {
   GAME_OVER,
 } from "../actions";
 
-import { defaultState } from "../utils/utils";
-
+import { defaultState, nextRotation, possibleMove } from "../utils/utils";
 
 const gameReducer = (state = defaultState(), action) => {
+  const { shape, grid, x, y, rotation, nextShape, score, isRunning } = state;
+
   switch (action.type) {
     case ROTATE:
+      const newRotation = nextRotation(shape, rotation);
+      if (possibleMove(shape, grid, x, y, newRotation)) {
+        return { ...state, rotation: newRotation };
+      }
       return state;
 
     case MOVE_RIGHT:
