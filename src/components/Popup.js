@@ -8,11 +8,11 @@ export default function Popup(props) {
   const messages = {
     pause: {
       title: "Game Paused",
-      info: "The is Paused, press resume to continue playing",
+      info: "The game is Paused, press Resume to continue playing",
     },
     over: {
       title: "Game Over",
-      info: "The game is over, click restart to play again",
+      info: "The game is over, click Restart to play again",
     },
     error: {
       title: "Error",
