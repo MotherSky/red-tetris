@@ -79,3 +79,38 @@ export const possibleMove = (shape, rotation, grid, x, y) => {
   }
   return true;
 };
+
+// Adds the current shape to grid
+
+export const addBlockToGrid = (shape, grid, x, y, rotation) => {
+  const block = shapes[shape][rotation];
+  const newGrid = [...grid];
+  for (let row = 0; row < block.length; row++) {
+    for (let col = 0; col < block[row].length; col++) {
+      if (block[row][col]) {
+        newGrid[row + y][col + x] = shape;
+      }
+    }
+  }
+  return newGrid;
+};
+
+// Check for complete rows and score points
+// NEEDS TO BE TESTED
+export const checkRows = (grid) => {
+  const points = [0, 40, 100, 300, 1200];
+  let completedRows = 0;
+  for (let row = 0; row < grid.length; row++) {
+    for (let col = 0; col < grid[row].length; col++) {
+      // if there is an empty square in row move to next iteration
+      if (grid[row][col] === 0) {
+        continue;
+      }
+      completedRows++;
+      //remove the row?
+      grid.splice(row, 1);
+      grid.unshift(Array(10).fill(0));
+    }
+  }
+  return points[completedRows];
+};
