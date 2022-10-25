@@ -8,7 +8,7 @@ export const random = (min, max) => {
 
 //generate the initial grid
 
-export const initalGrid = () => {
+export const initialGrid = () => {
   const rows = 20;
   const cols = 10;
   const array = [];
@@ -19,7 +19,7 @@ export const initalGrid = () => {
       array[row].push(0);
     }
   }
-  console.log(array);
+  return array;
 };
 
 //generate random shape
@@ -32,7 +32,7 @@ export const randomShape = () => {
 
 export const defaultState = () => {
   return {
-    grid: initalGrid(),
+    grid: initialGrid(),
     shape: randomShape(),
     rotation: 0,
     // x:5 and y:-4 to position the shape in the middle top.
