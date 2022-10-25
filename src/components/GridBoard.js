@@ -25,10 +25,9 @@ export default function GridBoard() {
       ) {
         color = block[blockY][blockX] === 0 ? color : blockColor;
       }
-      return <GridSquare key={`${col}--${row}`} color="0" />;
+      return <GridSquare key={`${col}--${row}`} color={color} />;
     });
   });
 
-  console.log(game);
   return <div className="grid-board">{newGrid}</div>;
 }
