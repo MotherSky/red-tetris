@@ -45,32 +45,39 @@ const gameReducer = (state = defaultState(), action) => {
       return state;
 
     case MOVE_DOWN:
-      //check if there any collision when y = y + 1 then move
-      if (possibleMove(shape, grid, x, y + 1, rotation)) {
-        return { ...state, y: y + 1 };
+      // Get the next potential Y position
+      const maybeY = y + 1;
+      // Check if the current block can move here
+      if (possibleMove(shape, grid, x, maybeY, rotation)) {
+        // If so move the block
+        return { ...state, y: maybeY };
       }
-      // if not place the block
+      // If not place the block
       const newGrid = addBlockToGrid(shape, grid, x, y, rotation);
+      // reset some things to start a new shape/block
       const newState = defaultState();
       newState.grid = newGrid;
       newState.shape = nextShape;
+      newState.nextShape = randomShape();
       newState.score = score;
       newState.isRunning = isRunning;
-      // if there is no room for the next shape, the game is over
+
       if (!possibleMove(nextShape, newGrid, 0, 4, 0)) {
+        // Game Over
         console.log("Game Should be over...");
         newState.shape = 0;
         return { ...state, gameOver: true };
       }
-      // update score
+      // Update the score based on if rows were completed or not
       newState.score = score + checkRows(newGrid);
+
       return newState;
 
     case RESUME:
-      return state;
+      return { ...state, isRunning: true };
 
     case PAUSE:
-      return state;
+      return { ...state, isRunning: false };
 
     case GAME_OVER:
       return state;

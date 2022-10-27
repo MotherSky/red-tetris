@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 export default function Controls(props) {
   const dispatch = useDispatch();
   const isRunning = useSelector((state) => state.isRunning);
+  const gameOver = useSelector((state) => state.gameOver);
 
   return (
     <div className="controls">
