@@ -11,6 +11,7 @@ export default function Controls(props) {
   return (
     <div className="controls">
       <button
+        disabled={!isRunning || gameOver}
         className="control-button"
         onClick={(e) => {
           if (isRunning && !gameOver) {
@@ -21,6 +22,7 @@ export default function Controls(props) {
         left
       </button>
       <button
+        disabled={!isRunning || gameOver}
         className="control-button"
         onClick={(e) => {
           if (isRunning && !gameOver) {
@@ -31,6 +33,7 @@ export default function Controls(props) {
         right
       </button>
       <button
+        disabled={!isRunning || gameOver}
         className="control-button"
         onClick={(e) => {
           if (isRunning && !gameOver) {
@@ -41,6 +44,7 @@ export default function Controls(props) {
         rotate
       </button>
       <button
+        disabled={!isRunning || gameOver}
         className="control-button"
         onClick={(e) => {
           if (isRunning && !gameOver) {

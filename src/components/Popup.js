@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 
 export default function Popup(props) {
   const gameState = useSelector((state) => state.game);
-  const { isRunning, GameOver } = gameState;
+  const { isRunning, gameOver } = gameState;
+  console.log(`r: ${isRunning} o: ${gameOver}`)
   const messages = {
     pause: {
       title: "Game Paused",
@@ -22,7 +23,8 @@ export default function Popup(props) {
 
   let messageType = "error";
   let hidden = "hidden";
-  if (GameOver) {
+  if (gameOver) {
+    console.log("DKHOOL");
     hidden = "";
     messageType = "over";
   } else if (!isRunning) {
