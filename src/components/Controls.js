@@ -5,15 +5,17 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function Controls(props) {
   const dispatch = useDispatch();
-  const isRunning = useSelector((state) => state.isRunning);
-  const gameOver = useSelector((state) => state.gameOver);
+  const isRunning = useSelector((state) => state.game.isRunning);
+  const gameOver = useSelector((state) => state.game.gameOver);
 
   return (
     <div className="controls">
       <button
         className="control-button"
         onClick={(e) => {
-          dispatch(moveLeft());
+          if (isRunning && !gameOver) {
+            dispatch(moveLeft());
+          }
         }}
       >
         left
@@ -21,7 +23,9 @@ export default function Controls(props) {
       <button
         className="control-button"
         onClick={(e) => {
-          dispatch(moveRight());
+          if (isRunning && !gameOver) {
+            dispatch(moveRight());
+          }
         }}
       >
         right
@@ -29,7 +33,9 @@ export default function Controls(props) {
       <button
         className="control-button"
         onClick={(e) => {
-          dispatch(rotate());
+          if (isRunning && !gameOver) {
+            dispatch(rotate());
+          }
         }}
       >
         rotate
@@ -37,7 +43,9 @@ export default function Controls(props) {
       <button
         className="control-button"
         onClick={(e) => {
-          dispatch(moveDown());
+          if (isRunning && !gameOver) {
+            dispatch(moveDown());
+          }
         }}
       >
         down
