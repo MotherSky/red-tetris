@@ -91,7 +91,7 @@ const gameReducer = (state = defaultState(), action) => {
       return { ...state, gameOver: true };
 
     case RESTART:
-      return state;
+      return defaultState();
 
     default:
       return state;
