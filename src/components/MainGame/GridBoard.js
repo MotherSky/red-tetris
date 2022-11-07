@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import GridSquare from "./GridSquare";
-import "../App.css";
+import "./MainGame.css";
 import { useSelector, useDispatch } from "react-redux";
-import { shapes } from "../utils/shapes";
-import { moveDown } from "../actions";
+import { shapes } from "../../utils/shapes";
+import { moveDown } from "../../actions";
 
 // Representation of our 20*10 grid
 

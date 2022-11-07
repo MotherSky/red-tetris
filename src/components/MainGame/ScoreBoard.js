@@ -1,7 +1,7 @@
 import React from "react";
-import "../App.css";
+import "./MainGame.css";
 import { useSelector, useDispatch } from "react-redux";
-import { pause, resume, restart } from "../actions";
+import { pause, resume, restart } from "../../actions";
 
 export default function ScoreBoard({ level = 1 }) {
   const dispatch = useDispatch();
