@@ -49,7 +49,8 @@
   --tile-size: 20px for example will set size of the grid squares. */
   --cols: 10;
   --rows: 20;
-  --tile-size: 20px;
+  --tile-size: 30px;
+  --spectator-tile-size: 30px;
   --border-width: 5px;
 }
 

@@ -19,7 +19,7 @@ export default function Controls(props) {
           }
         }}
       >
-        left
+        LEFT
       </button>
       <button
         disabled={!isRunning || gameOver}
@@ -30,7 +30,7 @@ export default function Controls(props) {
           }
         }}
       >
-        right
+        RIGHT
       </button>
       <button
         disabled={!isRunning || gameOver}
@@ -41,7 +41,7 @@ export default function Controls(props) {
           }
         }}
       >
-        rotate
+        ROTATE
       </button>
       <button
         disabled={!isRunning || gameOver}
@@ -52,7 +52,7 @@ export default function Controls(props) {
           }
         }}
       >
-        down
+        DOWN
       </button>
     </div>
   );

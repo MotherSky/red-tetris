@@ -14,9 +14,9 @@ const store = createStore(reducers);
 function MainGame() {
   return (
     <Provider store={store}>
-      <div className="Main-game">
+      <div className="Main-game font-pixel">
         <header className="Game-header">
-          <h1 className="Game-title">Tetris Redux</h1>
+          <h1 className="Game-title">ROOM 1</h1>
         </header>
         <GridBoard />
         <NextBlock />

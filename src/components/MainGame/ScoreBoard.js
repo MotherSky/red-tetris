@@ -25,7 +25,7 @@ export default function ScoreBoard({ level = 1 }) {
           }
         }}
       >
-        {isRunning ? "Pause" : "Resume"}
+        {isRunning ? "PAUSE" : "RESUME"}
       </button>
       <button
         className="score-board-button"
@@ -33,7 +33,7 @@ export default function ScoreBoard({ level = 1 }) {
           dispatch(restart());
         }}
       >
-        Restart
+        RESTART
       </button>
     </div>
   );

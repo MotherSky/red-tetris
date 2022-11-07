@@ -34,7 +34,7 @@ export default function Popup(props) {
 
   return (
     //<div className="message-popup">
-    <div className={`message-popup ${hidden}`}>
+    <div className={`uppercase message-popup ${hidden}`}>
       <h1>{messages[messageType].title}</h1>
       <p>{messages[messageType].info}</p>
     </div>

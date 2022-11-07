@@ -73,6 +73,7 @@
 }
 
 .score-board-button {
+  background-color: aliceblue;
   display: block;
   padding: 1em;
   border-width: 5px;
@@ -91,6 +92,7 @@
 }
 
 .control-button {
+  background-color: aliceblue;
   --size: calc(var(--tile-size) * 2.5);
   width: var(--size);
   height: var(--size);
