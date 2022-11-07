@@ -15,6 +15,12 @@ function HomePage() {
         type="text"
         placeholder="username"
         className="border border-gray-300 rounded pt-2 px-1"
+      />
+      <p className="text-white mt-4">Now enter a room</p>
+      <input
+        type="text"
+        placeholder="room"
+        className="border border-gray-300 rounded pt-2 px-1"
       ></input>
       <button className="w-full mt-6 bg-gray-300 pt-2 hover:bg-gray-500">
         JOIN
