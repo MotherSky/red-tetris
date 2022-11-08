@@ -8,6 +8,7 @@ function GamePage() {
     { id: 1, name: "Random", score: 69 },
     { id: 2, name: "3mara", score: 420 },
   ];
+
   return (
     <div className="w-full grid grid-cols-9 overflow-hidden">
       <MainGame />
