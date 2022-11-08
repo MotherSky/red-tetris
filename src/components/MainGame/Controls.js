@@ -14,7 +14,6 @@ export default function Controls(props) {
     e = e || window.event;
     if (e.keyCode === 37) {
       if (isRunning && !gameOver) {
-        console.log("left enter");
         dispatch(moveLeft());
       }
     } else if (e.keyCode === 38) {

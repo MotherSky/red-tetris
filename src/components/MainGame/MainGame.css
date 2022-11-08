@@ -173,6 +173,9 @@
   border-bottom-color: var(--button-color-b);
 }
 
+.control-button:active {
+  transform: translateY(2px);
+}
 /* Popup */
 .message-popup {
   position: absolute;
