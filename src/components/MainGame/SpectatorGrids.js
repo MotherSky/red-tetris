@@ -10,8 +10,10 @@ const store = createStore(reducers);
 function SpectatorGrids() {
   return (
     <Provider store={store}>
-      <div className="Spectator-grids">
-        <h1 className="text-white-700">ALOOOO</h1>
+      <div className="flex gap-10 flex-col col-span-4">
+        <GridBoard spectator={true} />
+        <GridBoard spectator={true} />
+        <GridBoard spectator={true} />
       </div>
     </Provider>
   );

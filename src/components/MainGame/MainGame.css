@@ -57,6 +57,29 @@
   border-bottom-color: var(--border-bottom-color);
 }
 
+/* Spectator Grid Board */
+
+.spectator-grid-board {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--spectator-tile-size));
+  grid-gap: 0;
+  align-self: flex-start;
+  grid-area: b;
+}
+
+/* Grid Square */
+
+.spectator-grid-square {
+  border-style: solid;
+  width: var(--spectator-tile-size);
+  height: var(--spectator-tile-size);
+  border-width: var(--border-width);
+  border-left-color: var(--border-left-color);
+  border-top-color: var(--border-top-color);
+  border-right-color: var(--border-right-color);
+  border-bottom-color: var(--border-bottom-color);
+}
+
 /* Next Block Grid */
 
 .next-block {

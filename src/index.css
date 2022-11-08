@@ -45,12 +45,11 @@
   --button-color-b: rgba(120, 120, 120, 1);
   --button-color-l: rgba(222, 222, 222, 1);
 
-  /* Numbers define values that will be used throughout the CSS.
-  --tile-size: 20px for example will set size of the grid squares. */
+  /* Numbers define values that will be used throughout the CSS. */
   --cols: 10;
   --rows: 20;
   --tile-size: 30px;
-  --spectator-tile-size: 30px;
+  --spectator-tile-size: 12px;
   --border-width: 5px;
 }
 

@@ -7,7 +7,7 @@ import { moveDown } from "../../actions";
 
 // Representation of our 20*10 grid
 
-export default function GridBoard() {
+export default function GridBoard({ spectator }) {
   const requestRef = useRef();
   const lastUpdateTimeRef = useRef(0);
   const progressTimeRef = useRef(0);
@@ -57,9 +57,19 @@ export default function GridBoard() {
         color = block[blockY][blockX] === 0 ? color : blockColor;
       }
       // Generate a unique key for every block
-      return <GridSquare key={`${col}--${row}`} color={color} />;
+      return (
+        <GridSquare
+          key={`${col}--${row}`}
+          color={color}
+          spectator={spectator}
+        />
+      );
     });
   });
 
-  return <div className="grid-board">{newGrid}</div>;
+  return (
+    <div className={spectator ? "spectator-grid-board" : "grid-board"}>
+      {newGrid}
+    </div>
+  );
 }

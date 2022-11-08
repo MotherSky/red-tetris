@@ -14,7 +14,7 @@ const store = createStore(reducers);
 function MainGame() {
   return (
     <Provider store={store}>
-      <div className="Main-game font-pixel">
+      <div className="Main-game font-pixel col-span-5">
         <header className="Game-header">
           <h1 className="Game-title">ROOM 1</h1>
         </header>
