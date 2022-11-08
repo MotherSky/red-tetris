@@ -13,7 +13,7 @@
   /* Defines three columns of `--col-side`, `--col-center`, and `--col-side` widths. */
   grid-template-columns: var(--col-side) var(--col-center) var(--col-side);
   /* Defines three rows of `100px`, `--grid-height`, and 100px. */
-  grid-template-rows: 100px var(--grid-height) 100px;
+  grid-template-rows: 100px var(--grid-height) 150px;
 
   /* This defines the areas on the grid with names: 'h', 'l', 'c', 'r',
   and 'b'. The '.' represents an empty cell on the grid. */
@@ -138,9 +138,25 @@
 /* Controls */
 
 .controls {
+  justify-self: center;
+  width: 225px;
   grid-area: c;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-areas: ". u ." "l d r";
+}
+
+.left-button {
+  grid-area: l;
+}
+
+.right-button {
+  grid-area: r;
+}
+.up-button {
+  grid-area: u;
+}
+.down-button {
+  grid-area: d;
 }
 
 .control-button {

@@ -12,8 +12,6 @@ export default function Controls(props) {
 
   function checkKey(e) {
     e = e || window.event;
-    console.log("KEYDOWWWWN: ", e);
-    console.log(`r: ${isRunning} , o: ${gameOver}`);
     if (e.keyCode === 37) {
       if (isRunning && !gameOver) {
         console.log("left enter");
@@ -38,7 +36,7 @@ export default function Controls(props) {
     <div className="controls">
       <button
         disabled={!isRunning || gameOver}
-        className="control-button"
+        className="control-button left-button"
         onClick={(e) => {
           if (isRunning && !gameOver) {
             dispatch(moveLeft());
@@ -49,7 +47,7 @@ export default function Controls(props) {
       </button>
       <button
         disabled={!isRunning || gameOver}
-        className="control-button"
+        className="control-button right-button"
         onClick={(e) => {
           if (isRunning && !gameOver) {
             dispatch(moveRight());
@@ -60,7 +58,7 @@ export default function Controls(props) {
       </button>
       <button
         disabled={!isRunning || gameOver}
-        className="control-button"
+        className="control-button up-button"
         onClick={(e) => {
           if (isRunning && !gameOver) {
             dispatch(rotate());
@@ -71,7 +69,7 @@ export default function Controls(props) {
       </button>
       <button
         disabled={!isRunning || gameOver}
-        className="control-button"
+        className="control-button down-button"
         onClick={(e) => {
           if (isRunning && !gameOver) {
             dispatch(moveDown());
