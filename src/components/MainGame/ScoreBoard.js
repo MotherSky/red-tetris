@@ -3,7 +3,7 @@ import "./MainGame.css";
 import { useSelector, useDispatch } from "react-redux";
 import { pause, resume, restart } from "../../actions";
 
-export default function ScoreBoard({ level = 1 }) {
+export default function ScoreBoard() {
   const dispatch = useDispatch();
   const game = useSelector((state) => state.game);
   const { score, isRunning, gameOver } = game;
@@ -11,7 +11,6 @@ export default function ScoreBoard({ level = 1 }) {
   return (
     <div className="score-board">
       <div>Score: {score}</div>
-      <div>Level: {level}</div>
       <button
         className="score-board-button"
         onClick={(e) => {

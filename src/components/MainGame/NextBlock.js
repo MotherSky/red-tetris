@@ -5,14 +5,20 @@ import "./MainGame.css";
 import { useSelector } from "react-redux";
 import { shapes } from "../../utils/shapes";
 
-export default function NextBlock(props) {
+export default function NextBlock({ spectator }) {
   const nextShape = useSelector((state) => state.game.nextShape);
   const box = shapes[nextShape][0]; // 0 is constant since we will always want to the first rotation
   const grid = box.map((rowArray, row) => {
     return rowArray.map((square, col) => {
-      return <GridSquare key={`${row}${col}`} color={square} />;
+      return (
+        <GridSquare spectator={spectator} key={`${row}${col}`} color={square} />
+      );
     });
   });
 
-  return <div className="next-block">{grid}</div>;
+  return (
+    <div className={spectator ? "spectator-next-block" : "next-block"}>
+      {grid}
+    </div>
+  );
 }

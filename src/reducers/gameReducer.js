@@ -75,7 +75,6 @@ const gameReducer = (state = defaultState(), action) => {
       newState.score = score;
       newState.isRunning = isRunning;
 
-      // TODO: Check and Set level
       // Score increases decrease interval
       newState.score = score + checkRows(newGrid);
 
