@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 export default function Popup(props) {
   const gameState = useSelector((state) => state.game);
   const { isRunning, gameOver } = gameState;
-  console.log(`r: ${isRunning} o: ${gameOver}`)
   const messages = {
     pause: {
       title: "Game Paused",
@@ -24,17 +23,16 @@ export default function Popup(props) {
   let messageType = "error";
   let hidden = "hidden";
   if (gameOver) {
-    console.log("DKHOOL");
     hidden = "";
     messageType = "over";
   } else if (!isRunning) {
     hidden = "";
     messageType = "pause";
   }
-
+  console.log(messageType);
   return (
     //<div className="message-popup">
-    <div className={`uppercase message-popup ${hidden}`}>
+    <div className={`uppercase message-popup ${hidden} ${messageType}`}>
       <h1>{messages[messageType].title}</h1>
       <p>{messages[messageType].info}</p>
     </div>

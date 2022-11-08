@@ -182,3 +182,7 @@
 .message-popup.hidden {
   display: none;
 }
+
+.pause {
+  background-color: rgba(110, 105, 105, 0.853);
+}
