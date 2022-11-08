@@ -3,10 +3,11 @@ import MainGame from "../MainGame/MainGame";
 import SpectatorGrids from "../MainGame/SpectatorGrids";
 
 function GamePage() {
+  const players = [{ id: 0 }, { id: 1 }, { id: 2 }];
   return (
-    <div className="grid grid-cols-9">
+    <div className="w-full grid grid-cols-9 overflow-hidden">
       <MainGame />
-      <SpectatorGrids />
+      <SpectatorGrids players={players} />
     </div>
   );
 }

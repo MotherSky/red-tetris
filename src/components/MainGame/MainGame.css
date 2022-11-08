@@ -8,6 +8,7 @@
   margin: auto;
   display: grid;
 
+  position: relative;
   grid-gap: var(--tile-size) var(--tile-size);
   /* Defines three columns of `--col-side`, `--col-center`, and `--col-side` widths. */
   grid-template-columns: var(--col-side) var(--col-center) var(--col-side);
@@ -131,13 +132,23 @@
 /* Popup */
 .message-popup {
   position: absolute;
-  left: 50%;
   top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  width: calc(var(--tile-size) * 10);
-  height: calc(var(--tile-size) * 10);
-  background-color: rgba(255, 255, 255, 0.5);
+  width: calc(var(--tile-size) * 11);
+  height: calc(var(--tile-size) * 5);
+  background-color: rgba(219, 114, 114, 0.853);
   text-align: center;
+}
+
+.message-popup h1 {
+  font-size: 3rem; /* 48px */
+  line-height: 3 rem;
+}
+
+.message-popup p {
+  font-size: 1rem; /* 16px */
+line-height: 1.5rem; /* 24px */
 }
 
 .message-popup.hidden {

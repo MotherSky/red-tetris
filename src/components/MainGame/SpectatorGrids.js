@@ -7,13 +7,18 @@ import reducers from "../../reducers";
 
 const store = createStore(reducers);
 
-function SpectatorGrids() {
+function SpectatorGrids({ players }) {
   return (
     <Provider store={store}>
-      <div className="flex gap-10 flex-col col-span-4">
-        <GridBoard spectator={true} />
-        <GridBoard spectator={true} />
-        <GridBoard spectator={true} />
+      <div className=" h-full top-0 overflow-y-auto my-12 mx-24 flex justify-self-end gap-10 justify-around flex-col col-span-4">
+        {players.map(({ id }) => {
+          return (
+            <React.Fragment key={id}>
+              <p className="text-zinc-100">player {id}</p>
+              <GridBoard spectator={true} />
+            </React.Fragment>
+          );
+        })}
       </div>
     </Provider>
   );
