@@ -1,5 +1,6 @@
 import React from "react";
 import MainGame from "../MainGame/MainGame";
+import RedaGame from "../MainGame/RedaGame";
 import SpectatorArea from "../MainGame/SpectatorArea";
 
 function GamePage() {
@@ -12,9 +13,9 @@ function GamePage() {
   ];
 
   return (
-    <div className="w-full grid grid-cols-9">
-      <MainGame />
-      <SpectatorArea players={players} />
+    <div className="container mx-auto">
+      <RedaGame />
+      {/* <SpectatorArea players={players} /> */}
     </div>
   );
 }
