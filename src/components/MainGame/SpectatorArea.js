@@ -11,20 +11,27 @@ const store = createStore(reducers);
 function SpectatorArea({ players }) {
   return (
     <Provider store={store}>
-      <div className=" h-full top-0 overflow-y-auto my-12 mx-24 flex justify-self-end gap-10 justify-around flex-col col-span-4">
-        {players.map(({ id, name, score }) => {
-          return (
-            <React.Fragment key={id}>
-              <div className="spectator-game">
+      <div className="my-12 mx-24 top-0 max-h-screen container col-span-4 overflow-y-auto">
+        <div>
+          <h1>Spectator area</h1>
+        </div>
+        <div
+          className={
+            /*" overflow-scroll  flex justify-self-end gap-10 justify-around flex-col col-span-4"*/ ""
+          }
+        >
+          {players.map(({ id, name, score }) => {
+            return (
+              <div key={id} className="spectator-game">
                 <p className="text-zinc-100">
-                   {name} : {score}
+                  {name} : {score}
                 </p>
                 <NextBlock spectator={true} />
                 <GridBoard spectator={true} />
               </div>
-            </React.Fragment>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </Provider>
   );
