@@ -3,7 +3,7 @@ import HomePage from "./components/Pages/HomePage";
 
 function App() {
   return (
-    <div className=" bg-cover h-screen v-screen overflow-hidden">
+    <div className=" bg-cubes h-screen v-screen overflow-hidden">
       <GamePage />
     </div>
   );

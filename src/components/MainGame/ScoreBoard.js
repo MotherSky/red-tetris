@@ -10,7 +10,7 @@ export default function ScoreBoard() {
 
   return (
     <div className="score-board">
-      <div>Score: {score}</div>
+      <div className="text-zinc-200 text-xl font-bold">Score: {score}</div>
       <button
         className="score-board-button"
         onClick={(e) => {

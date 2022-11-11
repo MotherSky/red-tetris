@@ -49,7 +49,7 @@ function RedaGame() {
             <Popup />
           </div>
         </div>
-        <div className="my-auto border h-screen overflow-y-auto border-4 border-blue-500">
+        <div className="hide-scroll overflow-x-hidden my-scroll overflow-y-scroll h-screen border border-4 border-blue-500">
           <SpectatorArea players={players}></SpectatorArea>
         </div>
       </div>

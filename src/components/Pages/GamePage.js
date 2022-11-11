@@ -13,7 +13,7 @@ function GamePage() {
   ];
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto xl:mx-32">
       <RedaGame />
       {/* <SpectatorArea players={players} /> */}
     </div>

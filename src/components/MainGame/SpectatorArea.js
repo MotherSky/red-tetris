@@ -11,9 +11,11 @@ const store = createStore(reducers);
 function SpectatorArea({ players }) {
   return (
     <Provider store={store}>
-      <div className="my-12 mx-24 top-0 max-h-screen container col-span-4 overflow-y-auto">
+      <div className="">
         <div>
-          <h1>Spectator area</h1>
+          <h1 className="m-5 text-zinc-200 text-2xl uppercase text-center">
+            Spectator area
+          </h1>
         </div>
         <div
           className={
@@ -22,7 +24,7 @@ function SpectatorArea({ players }) {
         >
           {players.map(({ id, name, score }) => {
             return (
-              <div key={id} className="spectator-game">
+              <div key={id} className="spectator-game ">
                 <p className="text-zinc-100">
                   {name} : {score}
                 </p>

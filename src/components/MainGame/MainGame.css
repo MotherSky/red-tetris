@@ -164,3 +164,12 @@
 .pause {
   background-color: rgba(110, 105, 105, 0.853);
 }
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
