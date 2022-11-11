@@ -9,6 +9,7 @@ import SpectatorArea from "./SpectatorArea";
 import NextBlock from "./NextBlock";
 import ScoreBoard from "./ScoreBoard";
 import Controls from "./Controls";
+import Popup from "./Popup";
 
 function RedaGame() {
   const store = createStore(reducers);
@@ -32,7 +33,7 @@ function RedaGame() {
           <header className="Game-header mb-8">
             <h1 className="Game-title ">ROOM X</h1>
           </header>
-          <div className="grid grid-cols-9 gap-2 justify-items-center">
+          <div className="grid grid-cols-9 gap-2 justify-items-center position-relative">
             <div className=" col-span-2 justify-self-end">
               <NextBlock />
             </div>
@@ -45,6 +46,7 @@ function RedaGame() {
             <div className="col-start-3 col-span-5 m-auto">
               <Controls />
             </div>
+            <Popup />
           </div>
         </div>
         <div className="my-auto border h-screen overflow-y-auto border-4 border-blue-500">
