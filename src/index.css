@@ -48,7 +48,7 @@
   /* Numbers define values that will be used throughout the CSS. */
   --cols: 10;
   --rows: 20;
-  --tile-size: 30px;
+  --tile-size: clamp(15px, 3vw, 40px);
   --spectator-tile-size: 12px;
   --border-width: 5px;
 }

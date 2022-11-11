@@ -3,12 +3,12 @@ import { Provider, useSelector } from "react-redux";
 import { createStore } from "redux";
 import { initialGrid, randomShape } from "../../utils/utils";
 import { shapes } from "../../utils/shapes";
-import RedaGrid from "./RedaGrid";
 import GridBoard from "./GridBoard";
 import reducers from "../../reducers";
 import SpectatorArea from "./SpectatorArea";
 import NextBlock from "./NextBlock";
 import ScoreBoard from "./ScoreBoard";
+import Controls from "./Controls";
 
 function RedaGame() {
   const store = createStore(reducers);
@@ -27,23 +27,24 @@ function RedaGame() {
 
   return (
     <Provider store={store}>
-      <div className="grid sm:grid-cols-4">
-        <div className="sm:col-span-3 border border-8 border-red-500">
-          <div className="grid grid-cols-9 gap-">
-            <div className="col-span-2">
-              <div className="grid grid-cols-4">
-                <NextBlock />
-              </div>
+      <div className="grid sm:grid-cols-4 gap-10">
+        <div className="m-auto sm:col-span-3 border border-8 border-red-500">
+          <div className="grid grid-cols-9 gap-5">
+            <div className=" col-span-2">
+              <NextBlock />
             </div>
-            <div className="col-span-5 border border-4 border-gray-500">
+            <div className=" max-h-fit min-h-fit max-w-fit min-w-fit col-span-5 border border-4 border-gray-500">
               <GridBoard />
             </div>
             <div className="col-span-2">
               <ScoreBoard />
             </div>
+            <div className="col-span-5">
+              <Controls />
+            </div>
           </div>
         </div>
-        <div className="border h-screen overflow-y-auto border-4 border-blue-500">
+        <div className="my-auto border h-screen overflow-y-auto border-4 border-blue-500">
           <SpectatorArea players={players}></SpectatorArea>
         </div>
       </div>

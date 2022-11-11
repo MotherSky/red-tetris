@@ -26,7 +26,7 @@ function SpectatorArea({ players }) {
                 <p className="text-zinc-100">
                   {name} : {score}
                 </p>
-                <NextBlock spectator={true} />
+                {/* <NextBlock spectator={true} /> */}
                 <GridBoard spectator={true} />
               </div>
             );

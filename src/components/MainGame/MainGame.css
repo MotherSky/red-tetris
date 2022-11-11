@@ -4,9 +4,9 @@
   --col-center: calc(var(--tile-size) * 10);
   --grid-height: calc(var(--tile-size) * 20);
 
-  width: calc(var(--tile-size) * (4 + 1 + 10 + 1 + 4));
+  /* width: calc(var(--tile-size) * (4 + 1 + 10 + 1 + 4)); */
   margin: auto;
-  display: grid;
+  /* display: grid; */
 
   position: relative;
   grid-gap: var(--tile-size) var(--tile-size);
