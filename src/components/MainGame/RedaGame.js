@@ -27,19 +27,22 @@ function RedaGame() {
 
   return (
     <Provider store={store}>
-      <div className="grid sm:grid-cols-4 gap-10">
-        <div className="m-auto sm:col-span-3 border border-8 border-red-500">
-          <div className="grid grid-cols-9 gap-5">
-            <div className=" col-span-2">
+      <div className="grid sm:grid-cols-4 gap-10 font-pixel">
+        <div className="m-auto sm:col-span-3">
+          <header className="Game-header mb-8">
+            <h1 className="Game-title ">ROOM X</h1>
+          </header>
+          <div className="grid grid-cols-9 gap-2 justify-items-center">
+            <div className=" col-span-2 justify-self-end">
               <NextBlock />
             </div>
-            <div className=" max-h-fit min-h-fit max-w-fit min-w-fit col-span-5 border border-4 border-gray-500">
+            <div className=" max-h-fit min-h-fit max-w-fit min-w-fit col-span-5 border border-4 border-gray-500 mb-3">
               <GridBoard />
             </div>
-            <div className="col-span-2">
+            <div className="col-span-2 justify-self-end">
               <ScoreBoard />
             </div>
-            <div className="col-span-5">
+            <div className="col-start-3 col-span-5 m-auto">
               <Controls />
             </div>
           </div>

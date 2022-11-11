@@ -138,9 +138,6 @@
 /* Controls */
 
 .controls {
-  justify-self: center;
-  width: 225px;
-  grid-area: c;
   display: grid;
   grid-template-areas: ". u ." "l d r";
 }
