@@ -17,14 +17,10 @@ function SpectatorArea({ players }) {
             Spectator area
           </h1>
         </div>
-        <div
-          className={
-            /*" overflow-scroll  flex justify-self-end gap-10 justify-around flex-col col-span-4"*/ ""
-          }
-        >
+        <div className={""}>
           {players.map(({ id, name, score }) => {
             return (
-              <div key={id} className="spectator-game ">
+              <div key={id} className="spectator-game">
                 <p className="text-zinc-100">
                   {name} : {score}
                 </p>
