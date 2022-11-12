@@ -49,7 +49,7 @@
   --cols: 10;
   --rows: 20;
   --tile-size: clamp(15px, min(3vw, 3vh), 40px);
-  --spectator-tile-size: 12px;
+  --spectator-tile-size: clamp(10px, min(1vw, 1vh), 16px);
   --border-width: 5px;
 }
 
