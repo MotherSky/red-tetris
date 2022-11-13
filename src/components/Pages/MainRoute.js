@@ -4,6 +4,12 @@ import HomePage from "./HomePage";
 import { useLocation } from "react-router-dom";
 import UrlError from "./UrlError";
 
+function extractInfo(hashURL) {
+  //slice to remove first and last characters (# and ])
+  const hash = hashURL.slice(1, -1);
+  return hash.split("[");
+}
+
 function MainRoute() {
   const regexp = /#\w*\S\[\w*\S]/;
   const { hash, pathname } = useLocation();
@@ -16,7 +22,8 @@ function MainRoute() {
     return <HomePage />;
   }
   if (pathname === "/" && hashMatch === hash) {
-    //console.log(hash.exec(regexp));
+    let [roomname, username] = extractInfo(hashMatch);
+    console.log("||", roomname, username, "||");
     return <GamePage />;
   }
   return <UrlError />;
