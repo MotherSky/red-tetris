@@ -29,7 +29,6 @@ export default function Popup(props) {
     hidden = "";
     messageType = "pause";
   }
-  console.log(messageType);
   return (
     //<div className="message-popup">
     <div className={`uppercase message-popup ${hidden} ${messageType}`}>
