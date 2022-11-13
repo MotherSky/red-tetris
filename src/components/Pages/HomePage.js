@@ -11,24 +11,28 @@ function HomePage(props) {
           Puzzle together in this modern online Tetris, Play against friends all
           over the world
         </h3>
-        <p className="text-white">
-          enter a username to join, or leave it blank to get a random one
-          (bonus)
-        </p>
-        <input
-          type="text"
-          placeholder="username"
-          className="border border-gray-300 rounded pt-2 px-1"
-        />
-        <p className="text-white mt-4">Now enter a room</p>
-        <input
-          type="text"
-          placeholder="room"
-          className="border border-gray-300 rounded pt-2 px-1"
-        ></input>
-        <button className="w-full mt-6 bg-gray-300 pt-2 hover:bg-gray-500">
-          JOIN
-        </button>
+        <form>
+          <label className="text-white block">
+            enter a username to join, or leave it blank to get a random one
+            (bonus)
+          </label>
+          <input
+            type="text"
+            placeholder="username"
+            pattern="[A-Za-z0-9*]"
+            className="border border-gray-300 rounded pt-2 px-1"
+          />
+          <label className="text-white block mt-4">Now enter a room</label>
+          <input
+            type="text"
+            placeholder="room"
+            required
+            className="border border-gray-300 rounded pt-2 px-1"
+          ></input>
+          <button className="w-full mt-6 bg-gray-300 pt-2 hover:bg-gray-500">
+            JOIN
+          </button>
+        </form>
       </div>
     </div>
   );

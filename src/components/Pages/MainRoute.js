@@ -11,18 +11,14 @@ function extractInfo(hashURL) {
 }
 
 function MainRoute() {
-  const regexp = /#\w*\S\[\w*\S]/;
+  const regexp = /^#\w+\[\w+]$/;
   const { hash, pathname } = useLocation();
-  let hashMatch;
-  if (hash.match(regexp)) {
-    hashMatch = hash.match(regexp)[0];
-  }
-  console.log(`path: ${pathname}, hash: ${hash}, hashmatch: ${hashMatch}`);
+  console.log(`path: ${pathname}, hash: ${hash}`);
   if (pathname === "/" && !hash) {
     return <HomePage />;
   }
-  if (pathname === "/" && hashMatch === hash) {
-    let [roomname, username] = extractInfo(hashMatch);
+  if (pathname === "/" && hash.match(regexp)) {
+    let [roomname, username] = extractInfo(hash);
     console.log("||", roomname, username, "||");
     return <GamePage />;
   }
