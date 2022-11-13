@@ -1,11 +1,10 @@
-import GamePage from "./components/Pages/GamePage";
-import HomePage from "./components/Pages/HomePage";
 import { Route, Routes } from "react-router-dom";
+import MainRoute from "./components/Pages/MainRoute";
 
 function App() {
   return (
     <Routes>
-      <Route path="*" element={<HomePage />} />
+      <Route path="*" element={<MainRoute />} />
     </Routes>
   );
 }
