@@ -1,16 +1,8 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import GamePage from "./GamePage";
 
 /* NEED TO MAKE IT RESPONSIVE AT MIN WIDTH */
 
 function HomePage(props) {
-  const regex = /#\w*\[\w*]/;
-  const { hash } = useLocation();
-  if (hash.match(regex)) {
-    return <GamePage />
-  }
-  console.log("hash :", hash);
   return (
     <div className="bg-cubes h-screen v-screen overflow-hidden flex justify-center items-center">
       <div className="text-center uppercase w-1/3 bg-gray-800/80 rounded p-5 font-pixel text-2xl">
