@@ -126,7 +126,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: calc(clamp(20px, var(--tile-size), 30px) * 14);
-  height: calc(clamp(20px, var(--tile-size), 30px) * 7);
+  height: calc(clamp(22px, var(--tile-size), 30px) * 7);
   background-color: rgba(219, 114, 114, 0.853);
   padding: 0.4rem;
   text-align: center;
