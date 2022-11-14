@@ -1,17 +1,20 @@
 import React from "react";
-//import { generateUsername } from "unique-username-generator";
+import { Redirect, Route, useNavigate } from "react-router-dom";
+
 const UsernameGenerator = require("username-generator");
-/* NEED TO MAKE IT RESPONSIVE AT MIN WIDTH */
 
 function HomePage(props) {
+  const navigate = useNavigate();
   const joinRoom = (e) => {
     e.preventDefault();
-    if (e.target.username.value === "") {
-      //console.log(generateUsername("", 0, 10));
-      console.log(UsernameGenerator.generateUsername(" "));
+    let username = e.target.username.value;
+    let room = e.target.room.value;
+    if (username === "") {
+      username = UsernameGenerator.generateUsername("_");
     }
-    console.log(e.target.username.value, e.target.room.value);
-    //this.props.history.push('/foo')
+    console.log(username, room);
+    console.log(`/#${room}[${username}]`);
+    navigate(`/#${room}[${username}]`);
   };
 
   return (
