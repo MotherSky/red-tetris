@@ -3,6 +3,7 @@ import GamePage from "./GamePage";
 import HomePage from "./HomePage";
 import { useLocation } from "react-router-dom";
 import UrlError from "./UrlError";
+import { io } from "socket.io-client";
 
 function extractInfo(hashURL) {
   //slice to remove first and last characters (# and ])
@@ -13,13 +14,16 @@ function extractInfo(hashURL) {
 function MainRoute() {
   const regexp = /^#\w+\[\w+]$/;
   const { hash, pathname } = useLocation();
-  console.log(`path: ${pathname}, hash: ${hash}`);
   if (pathname === "/" && !hash) {
     return <HomePage />;
   }
   if (pathname === "/" && hash.match(regexp)) {
-    let [roomname, username] = extractInfo(hash);
-    console.log("||", roomname, username, "||");
+    let [room, username] = extractInfo(hash);
+    const socket = io("http://localhost:3001");
+    socket.emit("init-game", username, room);
+    socket.on("send-game", (str) => {
+      console.log(str)
+    })
     return <GamePage />;
   }
   return <UrlError />;

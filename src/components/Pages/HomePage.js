@@ -12,8 +12,6 @@ function HomePage(props) {
     if (username === "") {
       username = UsernameGenerator.generateUsername("_");
     }
-    console.log(username, room);
-    console.log(`/#${room}[${username}]`);
     navigate(`/#${room}[${username}]`);
   };
 
