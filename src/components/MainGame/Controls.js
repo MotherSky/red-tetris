@@ -1,12 +1,13 @@
 import React from "react";
 
-import { moveDown, moveLeft, moveRight, rotate } from "../../actions";
+// import { moveDown, moveLeft, moveRight, rotate } from "../../actions";
+import { moveDown, moveLeft, moveRight, rotate } from "../../actions/GameSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Controls(props) {
   const dispatch = useDispatch();
-  const isRunning = useSelector((state) => state.game.isRunning);
-  const gameOver = useSelector((state) => state.game.gameOver);
+  const isRunning = useSelector((state) => state.isRunning);
+  const gameOver = useSelector((state) => state.gameOver);
 
   document.onkeydown = checkKey;
 

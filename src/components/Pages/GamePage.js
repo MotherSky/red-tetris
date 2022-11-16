@@ -8,7 +8,8 @@ import ScoreBoard from "../MainGame/ScoreBoard";
 import Controls from "../MainGame/Controls";
 import Popup from "../MainGame/Popup";
 import { configureStore, createStore } from "@reduxjs/toolkit";
-import gameReducer from "../../reducers/gameReducer";
+// import gameReducer from "../../reducers/gameReducer";
+import gameReducer from "../../actions/GameSlice";
 
 function GamePage() {
   const playerStore = configureStore({ reducer: gameReducer });

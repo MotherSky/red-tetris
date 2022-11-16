@@ -3,7 +3,8 @@ import GridSquare from "./GridSquare";
 import "./MainGame.css";
 import { useSelector, useDispatch } from "react-redux";
 import { shapes } from "../../utils/shapes";
-import { moveDown } from "../../actions";
+// import { moveDown } from "../../actions";
+import { moveDown } from "../../actions/GameSlice";
 
 // Representation of our 20*10 grid
 
@@ -12,7 +13,7 @@ export default function GridBoard({ spectator }) {
   const lastUpdateTimeRef = useRef(0);
   const progressTimeRef = useRef(0);
   const dispatch = useDispatch();
-  const game = useSelector((state) => state.game);
+  const game = useSelector((state) => state);
   const { grid, shape, rotation, x, y, isRunning, speed } = game;
 
   const update = (time) => {

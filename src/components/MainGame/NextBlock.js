@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { shapes } from "../../utils/shapes";
 
 export default function NextBlock({ spectator }) {
-  const nextShape = useSelector((state) => state.game.nextShape);
+  const nextShape = useSelector((state) => state.nextShape);
   const box = shapes[nextShape][0]; // 0 is constant since we will always want to the first rotation
   const grid = box.map((rowArray, row) => {
     return rowArray.map((square, col) => {

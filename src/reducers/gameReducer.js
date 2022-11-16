@@ -15,7 +15,6 @@ import {
   possibleMove,
   addBlockToGrid,
   checkRows,
-  randomShape,
 } from "../utils/utils";
 
 const gameReducer = (state = defaultState(), action) => {
@@ -78,8 +77,6 @@ const gameReducer = (state = defaultState(), action) => {
       // Score increases decrease interval
       newState.score = score + checkRows(newGrid);
 
-      console.log({ newState });
-      console.log({ state });
       return newState;
 
     case RESUME:
