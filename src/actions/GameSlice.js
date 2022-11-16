@@ -65,17 +65,12 @@ export const gameSlice = createSlice({
       // reset somethings to start a new shape/block
       state.shape = nextShape;
       ({ rotation, x, y, nextShape } = defaultState());
-      // newState.grid = newGrid;
-      // newState.shape = nextShape;
-      // newState.score = score;
-      // newState.isRunning = isRunning;
       state.grid = newGrid;
       state.rotation = rotation;
       state.x = x;
       state.y = y;
       state.nextShape = nextShape;
       state.score = score + checkRows(newGrid);
-      // console.log(newState);
       return state;
     },
 
