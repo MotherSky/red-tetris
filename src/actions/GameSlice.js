@@ -17,25 +17,22 @@ export const gameSlice = createSlice({
       const { shape, grid, x, y, rotation } = state;
       const newRotation = nextRotation(shape, rotation);
       if (possibleMove(shape, grid, x, y, newRotation)) {
-        return { ...state, rotation: newRotation };
+        state.rotation = newRotation;
       }
-      return state;
     },
 
     moveRight: (state) => {
       const { shape, grid, x, y, rotation } = state;
       if (possibleMove(shape, grid, x + 1, y, rotation)) {
-        return { ...state, x: x + 1 };
+        state.x += 1;
       }
-      return state;
     },
 
     moveLeft: (state) => {
       const { shape, grid, x, y, rotation } = state;
       if (possibleMove(shape, grid, x - 1, y, rotation)) {
-        return { ...state, x: x - 1 };
+        state.x -= 1;
       }
-      return state;
     },
 
     moveDown: (state) => {
@@ -46,7 +43,8 @@ export const gameSlice = createSlice({
       // Check if the current block can move here
       if (possibleMove(shape, grid, x, maybeY, rotation)) {
         // If so move down don't place the block
-        return { ...state, y: maybeY };
+        state.y = maybeY;
+        return state;
       }
       // If not place the block
       // (this returns an object with a grid and gameover bool)
@@ -59,7 +57,8 @@ export const gameSlice = createSlice({
         const newState = { ...state };
         newState.shape = 0;
         newState.grid = newGrid;
-        return { ...state, gameOver: true };
+        state.gameOver = true;
+        return state;
       }
 
       // reset somethings to start a new shape/block
