@@ -78,6 +78,8 @@ const gameReducer = (state = defaultState(), action) => {
       // Score increases decrease interval
       newState.score = score + checkRows(newGrid);
 
+      console.log({ newState });
+      console.log({ state });
       return newState;
 
     case RESUME:

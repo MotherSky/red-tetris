@@ -19,11 +19,11 @@ function MainRoute() {
   }
   if (pathname === "/" && hash.match(regexp)) {
     let [room, username] = extractInfo(hash);
-    const socket = io("http://localhost:3001");
-    socket.emit("init-game", username, room);
-    socket.on("send-game", (str) => {
-      console.log(str)
-    })
+    // const socket = io("http://localhost:3001");
+    // socket.emit("init-game", username, room);
+    // socket.on("send-game", (str) => {
+    //   console.log(str)
+    // })
     return <GamePage />;
   }
   return <UrlError />;

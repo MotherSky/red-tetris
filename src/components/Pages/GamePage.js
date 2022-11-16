@@ -1,6 +1,5 @@
 import React from "react";
 import { Provider, useSelector } from "react-redux";
-import { createStore } from "redux";
 import GridBoard from "../MainGame/GridBoard";
 import reducers from "../../reducers";
 import SpectatorArea from "../MainGame/SpectatorArea";
@@ -8,22 +7,26 @@ import NextBlock from "../MainGame/NextBlock";
 import ScoreBoard from "../MainGame/ScoreBoard";
 import Controls from "../MainGame/Controls";
 import Popup from "../MainGame/Popup";
+import { configureStore, createStore } from "@reduxjs/toolkit";
+import gameReducer from "../../reducers/gameReducer";
 
 function GamePage() {
-  const store = createStore(reducers);
+  const playerStore = configureStore({ reducer: gameReducer });
+  const spectateStore = configureStore({ reducer: gameReducer });
+  //const store = createStore(reducers);
 
   const players = [
     { id: 0, name: "Ayoub", score: 0 },
     { id: 1, name: "Random", score: 69 },
-    { id: 2, name: "1", score: 420 },
-    { id: 3, name: "2", score: 420 },
-    { id: 4, name: "3", score: 420 },
+    { id: 2, name: "Player 1", score: 420 },
+    { id: 3, name: "Player 2", score: 420 },
+    { id: 4, name: "Player 3", score: 420 },
   ];
 
   return (
-    <Provider store={store}>
-      <div className=" bg-cubes h-screen v-screen overflow-hidden">
-        <div className="grid sm:grid-cols-10 gap-10 font-pixel content-center h-screen">
+    <div className=" bg-cubes h-screen v-screen overflow-hidden">
+      <div className="grid sm:grid-cols-10 gap-10 font-pixel content-center h-screen">
+        <Provider store={playerStore}>
           <div className="m-auto sm:col-span-7">
             <header className="Game-header mb-8">
               <h1 className="Game-title ">ROOM X</h1>
@@ -44,12 +47,14 @@ function GamePage() {
               <Popup />
             </div>
           </div>
-          <div className="sm:col-span-3 overflow-auto hide-scroll">
+        </Provider>
+        <div className="sm:col-span-3 overflow-auto hide-scroll">
+          <Provider store={spectateStore}>
             <SpectatorArea players={players}></SpectatorArea>
-          </div>
+          </Provider>
         </div>
       </div>
-    </Provider>
+    </div>
   );
 }
 export default GamePage;
