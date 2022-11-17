@@ -1,7 +1,7 @@
 import React from "react";
 
 // import { moveDown, moveLeft, moveRight, rotate } from "../../actions";
-import { moveDown, moveLeft, moveRight, rotate } from "../../actions/GameSlice";
+import { moveDown, moveLeft, moveRight, rotate } from "../../Slice/GameSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Controls(props) {

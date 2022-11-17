@@ -36,7 +36,7 @@ export const gameSlice = createSlice({
     },
 
     moveDown: (state) => {
-      let { shape, grid, x, y, rotation, nextShape, score, isRunning } = state;
+      let { shape, grid, x, y, rotation, nextShape, score } = state;
       // Get the next potential Y position
       const maybeY = y + 1;
 

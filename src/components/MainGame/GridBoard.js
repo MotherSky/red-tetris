@@ -3,8 +3,7 @@ import GridSquare from "./GridSquare";
 import "./MainGame.css";
 import { useSelector, useDispatch } from "react-redux";
 import { shapes } from "../../utils/shapes";
-// import { moveDown } from "../../actions";
-import { moveDown } from "../../actions/GameSlice";
+import { moveDown } from "../../Slice/GameSlice";
 
 // Representation of our 20*10 grid
 
@@ -36,7 +35,7 @@ export default function GridBoard({ spectator }) {
   useEffect(() => {
     requestRef.current = requestAnimationFrame(update);
     return () => cancelAnimationFrame(requestRef.current);
-  }, [isRunning]);
+  });
 
   const block = shapes[shape][rotation];
   const blockColor = shape;

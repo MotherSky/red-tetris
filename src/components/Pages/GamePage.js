@@ -1,20 +1,17 @@
 import React from "react";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import GridBoard from "../MainGame/GridBoard";
-import reducers from "../../reducers";
 import SpectatorArea from "../MainGame/SpectatorArea";
 import NextBlock from "../MainGame/NextBlock";
 import ScoreBoard from "../MainGame/ScoreBoard";
 import Controls from "../MainGame/Controls";
 import Popup from "../MainGame/Popup";
-import { configureStore, createStore } from "@reduxjs/toolkit";
-// import gameReducer from "../../reducers/gameReducer";
-import gameReducer from "../../actions/GameSlice";
+import { configureStore } from "@reduxjs/toolkit";
+import gameReducer from "../../Slice/GameSlice";
 
 function GamePage() {
   const playerStore = configureStore({ reducer: gameReducer });
   const spectateStore = configureStore({ reducer: gameReducer });
-  //const store = createStore(reducers);
 
   const players = [
     { id: 0, name: "Ayoub", score: 0 },

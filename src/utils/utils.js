@@ -36,13 +36,13 @@ export const defaultState = () => {
     shape: randomShape(),
     rotation: 0,
     // x:5 and y:-4 to position the shape in the middle top.
-    x: 5,
+    x: 4,
     y: -4,
     nextShape: randomShape(),
     score: 0,
     speed: 1000,
     isRunning: true,
-    GameOver: false,
+    gameOver: false,
   };
 };
 
@@ -59,7 +59,7 @@ export const possibleMove = (shape, grid, x, y, rotation) => {
       if (currentShape[row][col] !== 0) {
         const proposedX = col + x;
         const proposedY = row + y;
-        if (proposedY < 0) {
+        if ((proposedY < 0) & (x === 4)) {
           continue;
         }
         const possibleRow = grid[proposedY];
@@ -103,26 +103,6 @@ export const addBlockToGrid = (shape, grid, x, y, rotation) => {
   // Return both the newGrid and the gameOver bool
   return { grid: newGrid, gameOver: blockOffGrid };
 };
-
-// Check for complete rows and score points
-
-/*export const checkRows = (grid) => {
-  const points = [0, 40, 100, 300, 1200];
-  let completedRows = 0;
-  for (let row = 0; row < grid.length; row++) {
-    for (let col = 0; col < grid[row].length; col++) {
-      // if there is an empty square in row move to next iteration
-      if (grid[row][col] === 0) {
-        continue;
-      }
-      completedRows++;
-      //remove the row?
-      grid.splice(row, 1);
-      grid.unshift(Array(10).fill(0));
-    }
-  }
-  return points[completedRows];
-};*/
 
 // Checks for completed rows and scores points
 export const checkRows = (grid) => {

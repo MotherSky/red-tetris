@@ -1,8 +1,8 @@
 import React from "react";
-import GamePage from "./GamePage";
-import HomePage from "./HomePage";
+import GamePage from "../components/Pages/GamePage";
+import HomePage from "../components/Pages/HomePage";
 import { useLocation } from "react-router-dom";
-import UrlError from "./UrlError";
+import UrlError from "../components/Pages/UrlError";
 import { io } from "socket.io-client";
 
 function extractInfo(hashURL) {

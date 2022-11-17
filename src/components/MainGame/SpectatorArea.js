@@ -1,10 +1,6 @@
 import React from "react";
 import GridBoard from "./GridBoard";
 
-import { Provider } from "react-redux";
-import reducers from "../../reducers";
-import NextBlock from "./NextBlock";
-
 function SpectatorArea({ players }) {
   return (
     <div className="my-12">
