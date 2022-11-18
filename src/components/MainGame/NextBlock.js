@@ -11,9 +11,9 @@ export default function NextBlock({ spectator }) {
   const box = shapes[nextShape][rotation];
   const grid = box.map((rowArray, row) => {
     return rowArray.map((square, col) => {
-      console.log(square);
+      const color = square ? nextShape : square;
       return (
-        <GridSquare spectator={spectator} key={`${row}${col}`} color={square} />
+        <GridSquare spectator={spectator} key={`${row}${col}`} color={color} />
       );
     });
   });
