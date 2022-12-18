@@ -1,4 +1,5 @@
 import React from "react";
+import { Provider } from "react-redux";
 import GridBoard from "./GridBoard";
 
 function SpectatorArea({ players }) {
@@ -10,14 +11,16 @@ function SpectatorArea({ players }) {
         </h1>
       </div>
       <div className={"flex flex-col items-center gap-10"}>
-        {players.map(({ id, name, score }) => {
+        {players.map(({ id, name, score, store }) => {
           return (
             <div key={id} className="">
-              <p className="text-zinc-100">
-                {name} : {score}
-              </p>
-              {/* <NextBlock spectator={true} /> */}
-              <GridBoard spectator={true} />
+              <Provider store={store}>
+                <p className="text-zinc-100">
+                  {name} : {score}
+                </p>
+                {/* <NextBlock spectator={true} /> */}
+                <GridBoard spectator={true} />
+              </Provider>
             </div>
           );
         })}

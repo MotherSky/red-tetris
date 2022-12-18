@@ -11,14 +11,38 @@ import gameReducer from "../../Slice/GameSlice";
 
 function GamePage() {
   const playerStore = configureStore({ reducer: gameReducer });
-  const spectateStore = configureStore({ reducer: gameReducer });
 
   const players = [
-    { id: 0, name: "Ayoub", score: 0 },
-    { id: 1, name: "Random", score: 69 },
-    { id: 2, name: "Player 1", score: 420 },
-    { id: 3, name: "Player 2", score: 420 },
-    { id: 4, name: "Player 3", score: 420 },
+    {
+      id: 0,
+      name: "Ayoub",
+      score: 0,
+      store: configureStore({ reducer: gameReducer }),
+    },
+    {
+      id: 1,
+      name: "Random",
+      score: 69,
+      store: configureStore({ reducer: gameReducer }),
+    },
+    {
+      id: 2,
+      name: "Player 1",
+      score: 420,
+      store: configureStore({ reducer: gameReducer }),
+    },
+    {
+      id: 3,
+      name: "Player 2",
+      score: 420,
+      store: configureStore({ reducer: gameReducer }),
+    },
+    {
+      id: 4,
+      name: "Player 3",
+      score: 420,
+      store: configureStore({ reducer: gameReducer }),
+    },
   ];
 
   return (
@@ -47,9 +71,9 @@ function GamePage() {
           </div>
         </Provider>
         <div className="sm:col-span-3 overflow-auto hide-scroll">
-          <Provider store={spectateStore}>
-            <SpectatorArea players={players}></SpectatorArea>
-          </Provider>
+          {/* <Provider store={spectatorStore}> */}
+          <SpectatorArea players={players}></SpectatorArea>
+          {/* </Provider> */}
         </div>
       </div>
     </div>
