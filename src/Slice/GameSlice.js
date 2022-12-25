@@ -1,93 +1,143 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  defaultState,
-  nextRotation,
-  possibleMove,
-  addBlockToGrid,
-  checkRows,
-} from "../utils/utils";
+import { defaultState } from "../utils/utils";
 
-const initialState = defaultState();
+//FIXME -- issue in init state
+let initialState = defaultState();
 
 export const gameSlice = createSlice({
-  name: "Game",
-  initialState: initialState,
-  reducers: {
-    rotate: (state) => {
-      const { shape, grid, x, y, rotation } = state;
-      const newRotation = nextRotation(shape, rotation);
-      if (possibleMove(shape, grid, x, y, newRotation)) {
-        state.rotation = newRotation;
-      }
-    },
+	name: "Game",
+	initialState: initialState,
+	reducers: {
+		initState: (state, data) => {
+			let newState = {
+				...state,
+				grid: data.payload.grid.playground,
+				shape: data.payload.shape,
+				rotation: data.payload.rotation,
+				// x:5 and y:-4 to position the shape in the middle top.
+				x: data.payload.x,
+				y: data.payload.y,
+				nextShape: data.payload.nextShape,
+				score: data.payload.score,
+				speed: 1000,
+				isRunning: data.payload.isRunning,
+				gameOver: data.payload.gameOver,
+				uuid: data.payload.uuid,
+				username: data.payload.username,
+				playersList: [data.payload],
+			};
+			state = newState;
+			return state;
+		},
 
-    moveRight: (state) => {
-      const { shape, grid, x, y, rotation } = state;
-      if (possibleMove(shape, grid, x + 1, y, rotation)) {
-        state.x += 1;
-      }
-    },
+		rotate: (state, data) => {
+			const newState = {
+				...state,
+				grid: data.payload.grid.playground,
+				shape: data.payload.shape,
+				rotation: data.payload.rotation,
+				// x:5 and y:-4 to position the shape in the middle top.
+				x: data.payload.x,
+				y: data.payload.y,
+				nextShape: data.payload.nextShape,
+				score: data.payload.score,
+				speed: 1000,
+				isRunning: data.payload.isRunning,
+				gameOver: data.payload.gameOver,
+				uuid: data.payload.uuid,
+				username: data.payload.username,
+			};
+			state = newState;
+			return state;
+		},
 
-    moveLeft: (state) => {
-      const { shape, grid, x, y, rotation } = state;
-      if (possibleMove(shape, grid, x - 1, y, rotation)) {
-        state.x -= 1;
-      }
-    },
+		moveRight: (state, data) => {
+			const newState = {
+				...state,
+				grid: data.payload.grid.playground,
+				shape: data.payload.shape,
+				rotation: data.payload.rotation,
+				// x:5 and y:-4 to position the shape in the middle top.
+				x: data.payload.x,
+				y: data.payload.y,
+				nextShape: data.payload.nextShape,
+				score: data.payload.score,
+				speed: 1000,
+				isRunning: data.payload.isRunning,
+				gameOver: data.payload.gameOver,
+				uuid: data.payload.uuid,
+				username: data.payload.username,
+			};
+			state = newState;
+			return state;
+		},
 
-    moveDown: (state) => {
-      let { shape, grid, x, y, rotation, nextShape, score } = state;
-      // Get the next potential Y position
-      const maybeY = y + 1;
+		moveLeft: (state, data) => {
+			const newState = {
+				...state,
+				grid: data.payload.grid.playground,
+				shape: data.payload.shape,
+				rotation: data.payload.rotation,
+				// x:5 and y:-4 to position the shape in the middle top.
+				x: data.payload.x,
+				y: data.payload.y,
+				nextShape: data.payload.nextShape,
+				score: data.payload.score,
+				speed: 1000,
+				isRunning: data.payload.isRunning,
+				gameOver: data.payload.gameOver,
+				uuid: data.payload.uuid,
+				username: data.payload.username,
+			};
+			state = newState;
+			return state;
+		},
 
-      // Check if the current block can move here
-      if (possibleMove(shape, grid, x, maybeY, rotation)) {
-        // If so move down don't place the block
-        state.y = maybeY;
-        return state;
-      }
-      // If not place the block
-      // (this returns an object with a grid and gameover bool)
-      const ret = addBlockToGrid(shape, grid, x, y, rotation);
-      const newGrid = ret.grid;
-      const gameOver = ret.gameOver;
+		moveDown: (state, data) => {
+			const newState = {
+				...state,
+				grid: data.payload.grid.playground,
+				shape: data.payload.shape,
+				rotation: data.payload.rotation,
+				// x:5 and y:-4 to position the shape in the middle top.
+				x: data.payload.x,
+				y: data.payload.y,
+				nextShape: data.payload.nextShape,
+				score: data.payload.score,
+				speed: 1000,
+				isRunning: data.payload.isRunning,
+				gameOver: data.payload.gameOver,
+				uuid: data.payload.uuid,
+				username: data.payload.username,
+			};
+			state = newState;
+			return state;
+		},
 
-      if (gameOver) {
-        // Game Over
-        const newState = { ...state };
-        newState.shape = 0;
-        newState.grid = newGrid;
-        state.gameOver = true;
-        return state;
-      }
+		resume: (state) => {
+			return { ...state, isRunning: true };
+		},
 
-      // reset somethings to start a new shape/block
-      state.shape = nextShape;
-      ({ rotation, x, y, nextShape } = defaultState());
-      state.grid = newGrid;
-      state.rotation = rotation;
-      state.x = x;
-      state.y = y;
-      state.nextShape = nextShape;
-      state.score = score + checkRows(newGrid);
-      return state;
-    },
+		pause: (state) => {
+			return { ...state, isRunning: false };
+		},
 
-    resume: (state) => {
-      return { ...state, isRunning: true };
-    },
+		restart: () => {
+			return defaultState();
+		},
 
-    pause: (state) => {
-      return { ...state, isRunning: false };
-    },
+		onCollision: (state, data) => {
+			const array = [...state.playersList];
+			let index = array.findIndex((e) => e.uuid === data.payload.uuid);
+			if (index >= 0) {
+				array[index] = data.payload;
+			}
 
-    restart: () => {
-      return defaultState();
-    },
-  },
+			return { ...state, playersList: array };
+		},
+	},
 });
 
-export const { moveRight, moveLeft, moveDown, rotate, pause, resume, restart } =
-  gameSlice.actions;
+export const { moveRight, moveLeft, moveDown, rotate, pause, resume, restart, initState, onCollision } = gameSlice.actions;
 
 export default gameSlice.reducer;
