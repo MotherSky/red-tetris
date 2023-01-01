@@ -14,7 +14,6 @@ export const gameSlice = createSlice({
 				grid: data.payload.grid.playground,
 				shape: data.payload.shape,
 				rotation: data.payload.rotation,
-				// x:5 and y:-4 to position the shape in the middle top.
 				x: data.payload.x,
 				y: data.payload.y,
 				nextShape: data.payload.nextShape,
@@ -24,7 +23,9 @@ export const gameSlice = createSlice({
 				gameOver: data.payload.gameOver,
 				uuid: data.payload.uuid,
 				username: data.payload.username,
-				playersList: [data.payload],
+				playersList: [],
+				inRoom: data.payload.inRoom,
+				gameMaster: data.payload.gameMaster,
 			};
 			state = newState;
 			return state;
@@ -36,7 +37,6 @@ export const gameSlice = createSlice({
 				grid: data.payload.grid.playground,
 				shape: data.payload.shape,
 				rotation: data.payload.rotation,
-				// x:5 and y:-4 to position the shape in the middle top.
 				x: data.payload.x,
 				y: data.payload.y,
 				nextShape: data.payload.nextShape,
@@ -57,7 +57,6 @@ export const gameSlice = createSlice({
 				grid: data.payload.grid.playground,
 				shape: data.payload.shape,
 				rotation: data.payload.rotation,
-				// x:5 and y:-4 to position the shape in the middle top.
 				x: data.payload.x,
 				y: data.payload.y,
 				nextShape: data.payload.nextShape,
@@ -78,7 +77,6 @@ export const gameSlice = createSlice({
 				grid: data.payload.grid.playground,
 				shape: data.payload.shape,
 				rotation: data.payload.rotation,
-				// x:5 and y:-4 to position the shape in the middle top.
 				x: data.payload.x,
 				y: data.payload.y,
 				nextShape: data.payload.nextShape,
@@ -99,7 +97,6 @@ export const gameSlice = createSlice({
 				grid: data.payload.grid.playground,
 				shape: data.payload.shape,
 				rotation: data.payload.rotation,
-				// x:5 and y:-4 to position the shape in the middle top.
 				x: data.payload.x,
 				y: data.payload.y,
 				nextShape: data.payload.nextShape,
@@ -126,6 +123,13 @@ export const gameSlice = createSlice({
 			return defaultState();
 		},
 
+		playerJoinedTheRoom: (state, data) => {
+			const players = [...state.playersList];
+			const newPlayer = data.payload;
+			players.push(newPlayer);
+			return { ...state, playersList: players };
+		},
+
 		onCollision: (state, data) => {
 			const array = [...state.playersList];
 			let index = array.findIndex((e) => e.uuid === data.payload.uuid);
@@ -135,9 +139,16 @@ export const gameSlice = createSlice({
 
 			return { ...state, playersList: array };
 		},
+
+		updateGameMaster: (state, data) => {
+			const newMaster = state.uuid === data.payload;
+
+			console.log(state.uuid, data.payload, newMaster);
+			return { ...state, gameMaster: newMaster };
+		},
 	},
 });
 
-export const { moveRight, moveLeft, moveDown, rotate, pause, resume, restart, initState, onCollision } = gameSlice.actions;
+export const { moveRight, moveLeft, moveDown, rotate, pause, resume, restart, initState, onCollision, playerJoinedTheRoom, updateGameMaster } = gameSlice.actions;
 
 export default gameSlice.reducer;

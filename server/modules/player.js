@@ -192,10 +192,6 @@ const Player = class {
 		
 		return this;
 	};
-
-	isRoomMaster = () => {
-		console.log(this);
-	};
 };
 
 exports.Player = Player;

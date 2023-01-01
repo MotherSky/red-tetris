@@ -1,18 +1,8 @@
+//ZABII -- this file need to recheck
 import React from "react";
-
-// import { moveDown, moveLeft, moveRight, rotate } from "../../actions";
-import { moveDown, moveLeft, moveRight, rotate, initState, onCollision } from "../../Slice/GameSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Controls(props) {
-	props.socket.emit("joinRoom", {}, (data) => {
-		if (!data) {
-			console.error(data);
-		} else {
-			dispatch(initState(data));
-		}
-	});
-	const dispatch = useDispatch();
 	const isRunning = useSelector((state) => state.isRunning);
 	const gameOver = useSelector((state) => state.gameOver);
 
@@ -38,27 +28,6 @@ export default function Controls(props) {
 			}
 		}
 	}
-
-	props.socket.on("moveLeft", (data) => {
-		dispatch(moveLeft(data));
-	});
-
-	props.socket.on("moveRight", (data) => {
-		dispatch(moveRight(data));
-	});
-
-	props.socket.on("moveDown", (data) => {
-		dispatch(moveDown(data));
-	});
-
-	props.socket.on("moveRotate", (data) => {
-		dispatch(rotate(data));
-	});
-
-	props.socket.on("playerTetroCollision", (data) => {
-		console.log("playerTetroCollision", data);
-    dispatch(onCollision(data));
-	});
 
 	return (
 		<div className="controls">

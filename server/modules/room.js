@@ -79,6 +79,7 @@ const Rooms = class {
 					room.host = Object.keys(room.players)[0];
 				}
 			}
+			return room
 		} catch (err) {
 			throw err;
 		}
@@ -116,6 +117,10 @@ const Rooms = class {
 			value.updateGeneratedTetros(this.rooms[roomName].genaratedTetros);
 		}
 	}
+
+	isRoomMaster = (uuid, roomName) => {
+		return this.rooms[roomName].host === uuid
+	};
 };
 
 module.exports = new Rooms();

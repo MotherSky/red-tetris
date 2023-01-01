@@ -1,17 +1,18 @@
 import React from "react";
-import { Provider } from "react-redux";
-import GridBoard from "../MainGame/GridBoard";
 import SpectatorArea from "../MainGame/SpectatorArea";
 import NextBlock from "../MainGame/NextBlock";
 import ScoreBoard from "../MainGame/ScoreBoard";
 import Controls from "../MainGame/Controls";
+import MasterBoard from "../MainGame/MasterBoard";
 import Popup from "../MainGame/Popup";
-import { configureStore } from "@reduxjs/toolkit";
-import gameReducer from "../../Slice/GameSlice";
+import { initState, moveDown, moveLeft, moveRight, onCollision, playerJoinedTheRoom, rotate, updateGameMaster } from "../../Slice/GameSlice";
 import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
+import { useDispatch } from "react-redux";
+import Header from "../MainGame/header";
 
 function GamePage(props) {
+	const dispatch = useDispatch();
 	const userUUID = uuidv4();
 	const options = {
 		query: {
@@ -26,71 +27,67 @@ function GamePage(props) {
 		console.log({ message });
 	});
 
-	const playerStore = configureStore({ reducer: gameReducer });
+	socket.on("moveLeft", (data) => {
+		dispatch(moveLeft(data));
+	});
 
-	// const players = [
-	// 	{
-	// 		id: 0,
-	// 		name: "Ayoub",
-	// 		score: 0,
-	// 		store: configureStore({ reducer: gameReducer }),
-	// 	},
-	// 	{
-	// 		id: 1,
-	// 		name: "Random",
-	// 		score: 69,
-	// 		store: configureStore({ reducer: gameReducer }),
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		name: "Player 1",
-	// 		score: 420,
-	// 		store: configureStore({ reducer: gameReducer }),
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		name: "Player 2",
-	// 		score: 420,
-	// 		store: configureStore({ reducer: gameReducer }),
-	// 	},
-	// 	{
-	// 		id: 4,
-	// 		name: "Player 3",
-	// 		score: 420,
-	// 		store: configureStore({ reducer: gameReducer }),
-	// 	},
-	// ];
+	socket.on("moveRight", (data) => {
+		dispatch(moveRight(data));
+	});
+
+	socket.on("moveDown", (data) => {
+		dispatch(moveDown(data));
+	});
+
+	socket.on("moveRotate", (data) => {
+		dispatch(rotate(data));
+	});
+
+	socket.on("playerTetroCollision", (data) => {
+		console.log("playerTetroCollision", data);
+		dispatch(onCollision(data));
+	});
+
+	socket.on("initState", (data) => {
+		dispatch(initState(data));
+	});
+
+	socket.on("playerJoinedTheRoom", (data) => {
+		// TODO: update spectators list when new user is joined to the room
+		console.log("playerJoinedTheRoom", data);
+		dispatch(playerJoinedTheRoom(data));
+	});
+
+	socket.on("hostUpdate", (data) => {
+		// TODO: update the host if the host is disconnected
+		console.log("hostUpdate", data);
+		dispatch(updateGameMaster(data));
+	});
 
 	return (
 		<div className=" bg-cubes h-screen v-screen overflow-hidden">
 			<div className="grid sm:grid-cols-10 gap-10 font-pixel content-center h-screen">
-				<Provider store={playerStore}>
-					<div className="m-auto sm:col-span-7">
-						<header className="Game-header mb-8">
-							<h1 className="Game-title ">ROOM X</h1>
-						</header>
-						<div className="grid grid-cols-9 gap-2 justify-items-center position-relative">
-							<div className=" col-span-2 justify-self-end">
-								<NextBlock />
-							</div>
-							<div className=" max-h-fit min-h-fit max-w-fit min-w-fit col-span-5 border border-4 border-gray-500 mb-3">
-								<GridBoard />
-							</div>
-							<div className="col-span-2 justify-self-end">
-								<ScoreBoard />
-							</div>
-							<div className="col-start-3 col-span-5 m-auto">
-								<Controls socket={socket} />
-							</div>
-							<Popup />
+				<div className="m-auto sm:col-span-7">
+					<Header />
+					<div className="grid grid-cols-9 gap-2 justify-items-center position-relative">
+						<div className=" col-span-2 justify-self-end">
+							<NextBlock />
 						</div>
+						<div className=" max-h-fit min-h-fit max-w-fit min-w-fit col-span-5 border border-4 border-gray-500 mb-3">
+							<MasterBoard />
+						</div>
+						<div className="col-span-2 justify-self-end">
+							<ScoreBoard />
+						</div>
+						<div className="col-start-3 col-span-5 m-auto">
+							<Controls socket={socket} />
+						</div>
+						<Popup />
 					</div>
-					<div className="sm:col-span-3 overflow-auto hide-scroll">
-						{/* <Provider store={spectatorStore}> */}
-						<SpectatorArea></SpectatorArea>
-						{/* </Provider> */}
-					</div>
-				</Provider>
+				</div>
+				<div className="sm:col-span-3 overflow-auto hide-scroll">
+					<SpectatorArea></SpectatorArea>
+				</div>
 			</div>
 		</div>
 	);

@@ -22,22 +22,22 @@ module.exports = {
 					//join rooms (uuid and gameRoom)
 					socket.join(userUUID);
 					socket.join(roomName);
+
+					const roomData = Rooms.rooms[roomName];
+					const player = roomData.players[userUUID].getPlayer();
+					// [x] task - send data as soon as the player join the room to init the state in the front-end
+					player.gameMaster = Rooms.rooms[roomName].host === userUUID;
+					socket.emit("initState", player);
+					socket.to(roomName).emit("playerJoinedTheRoom", player);
 				} else {
 					throw new Error("missing params");
 				}
 
-				socket.on("joinRoom", async (data, cb) => {
-					let roomData = Rooms.rooms[roomName];
-					let player = roomData.players[userUUID].getPlayer();
-					cb(player);
-				});
-
-				//TODO game start emit
+				//[ ] task - game start emit
 				socket.on("startGame", async (data, cb) => {
-					Rooms.rooms[roomName].players[userUUID].isRoomMaster();
+					const roomMaster = Rooms.rooms[roomName].players[userUUID].isRoomMaster();
 
-					// if (!Rooms.rooms[roomName].interval)
-					// 	Rooms.gameStart(roomName, 1000)
+					console.log({ roomMaster });
 				});
 
 				socket.on("goLeft", async () => {
@@ -67,7 +67,9 @@ module.exports = {
 
 				socket.on("disconnect", async () => {
 					console.log(`disconnect user [${userUUID} | ${userName}]`);
-					await Rooms.playerLeave(roomName, userUUID);
+					const newRoomData = await Rooms.playerLeave(roomName, userUUID);
+					// [ ] task - to check the host update
+					socket.to(roomName).emit("hostUpdate", newRoomData.host);
 					socket.leave(userUUID);
 					socket.leave(roomName);
 				});
