@@ -3,8 +3,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 export default function Controls(props) {
-	const isRunning = useSelector((state) => state.isRunning);
-	const gameOver = useSelector((state) => state.gameOver);
+	const isRunning = useSelector((state) => state.game.isRunning);
+	const gameOver = useSelector((state) => state.game.gameOver);
 
 	document.onkeydown = checkKey;
 

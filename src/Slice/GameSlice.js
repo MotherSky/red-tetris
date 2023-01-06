@@ -24,8 +24,6 @@ export const gameSlice = createSlice({
 				uuid: data.payload.uuid,
 				username: data.payload.username,
 				playersList: [],
-				inRoom: data.payload.inRoom,
-				gameMaster: data.payload.gameMaster,
 			};
 			state = newState;
 			return state;
@@ -123,32 +121,9 @@ export const gameSlice = createSlice({
 			return defaultState();
 		},
 
-		playerJoinedTheRoom: (state, data) => {
-			const players = [...state.playersList];
-			const newPlayer = data.payload;
-			players.push(newPlayer);
-			return { ...state, playersList: players };
-		},
-
-		onCollision: (state, data) => {
-			const array = [...state.playersList];
-			let index = array.findIndex((e) => e.uuid === data.payload.uuid);
-			if (index >= 0) {
-				array[index] = data.payload;
-			}
-
-			return { ...state, playersList: array };
-		},
-
-		updateGameMaster: (state, data) => {
-			const newMaster = state.uuid === data.payload;
-
-			console.log(state.uuid, data.payload, newMaster);
-			return { ...state, gameMaster: newMaster };
-		},
 	},
 });
 
-export const { moveRight, moveLeft, moveDown, rotate, pause, resume, restart, initState, onCollision, playerJoinedTheRoom, updateGameMaster } = gameSlice.actions;
+export const { moveRight, moveLeft, moveDown, rotate, pause, resume, restart, initState } = gameSlice.actions;
 
 export default gameSlice.reducer;

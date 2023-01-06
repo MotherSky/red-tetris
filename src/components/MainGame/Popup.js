@@ -3,7 +3,7 @@ import "./MainGame.css";
 import { useSelector } from "react-redux";
 
 export default function Popup(props) {
-  const gameState = useSelector((state) => state);
+  const gameState = useSelector((state) => state.game);
   const { isRunning, gameOver } = gameState;
   const messages = {
     pause: {

@@ -52,6 +52,10 @@ const Rooms = class {
 				if (checkPlayersExist(this.rooms[roomName].players, userName)) {
 					throw new Error("There is a player with the same user name in the room");
 				}
+				//check for the game if already started 
+				if (this.rooms[roomName].interval){
+					throw new Error("the game is already started");
+				}
 				this.rooms[roomName].players[userUUID] = new Player(userUUID, userName, roomName, io, this.rooms[roomName].genaratedTetros);
 			}
 		} catch (err) {
@@ -73,13 +77,13 @@ const Rooms = class {
 
 				//destroy the room if the current player is the last player in the room
 				if (!Object.keys(room.players).length) {
-					room.interval = null;
+					clearInterval(room.interval);
 					this.destroyRoom(roomName);
 				} else {
 					room.host = Object.keys(room.players)[0];
 				}
 			}
-			return room
+			return room;
 		} catch (err) {
 			throw err;
 		}
@@ -87,6 +91,18 @@ const Rooms = class {
 
 	getRoom(name) {
 		return this.rooms[name];
+	}
+
+	getRoomPlayers(name, uuid) {
+		let players = [];
+		for (const [key, value] of Object.entries(this.rooms[name].players)) {
+			const playerState = value.getPlayer();
+
+			if (playerState.uuid !== uuid) {
+				players.push(playerState);
+			}
+		}
+		return players
 	}
 
 	destroyRoom(name) {
@@ -117,10 +133,6 @@ const Rooms = class {
 			value.updateGeneratedTetros(this.rooms[roomName].genaratedTetros);
 		}
 	}
-
-	isRoomMaster = (uuid, roomName) => {
-		return this.rooms[roomName].host === uuid
-	};
 };
 
 module.exports = new Rooms();

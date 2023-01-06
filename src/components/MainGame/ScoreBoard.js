@@ -6,8 +6,8 @@ import { pause, resume, restart } from "../../Slice/GameSlice";
 
 export default function ScoreBoard() {
   const dispatch = useDispatch();
-  const game = useSelector((state) => state);
-  const { score, isRunning, gameOver } = game;
+  const store = useSelector((state) => state.game);
+  const { score, isRunning, gameOver } = store;
 
   return (
     <div className="score-board">

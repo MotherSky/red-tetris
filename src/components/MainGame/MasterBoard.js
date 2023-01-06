@@ -7,8 +7,8 @@ import { shapes } from "../../utils/shapes";
 // Representation of our 20*10 grid
 
 export default function MasterGridBoard({ spectator }) {
-	const game = useSelector((state) => state);
-	const { grid, shape, rotation, x, y } = game;
+	const store = useSelector((state) => state.game);
+	const { grid, shape, rotation, x, y } = store;
 
 	const block = shapes[shape][rotation];
 	const blockColor = shape;

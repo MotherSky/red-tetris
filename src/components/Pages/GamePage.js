@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useRef } from "react";
 import SpectatorArea from "../MainGame/SpectatorArea";
 import NextBlock from "../MainGame/NextBlock";
 import ScoreBoard from "../MainGame/ScoreBoard";
 import Controls from "../MainGame/Controls";
 import MasterBoard from "../MainGame/MasterBoard";
 import Popup from "../MainGame/Popup";
-import { initState, moveDown, moveLeft, moveRight, onCollision, playerJoinedTheRoom, rotate, updateGameMaster } from "../../Slice/GameSlice";
+import { initState, moveDown, moveLeft, moveRight, rotate } from "../../Slice/GameSlice";
+import { initHeaderState, updateGameMaster } from "../../Slice/Header";
+import { pushSpectators, onCollision, getSpectatorsList, deletePlayer } from "../../Slice/Spectators";
 import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import Header from "../MainGame/header";
 
 function GamePage(props) {
+	const ref = useRef();
 	const dispatch = useDispatch();
 	const userUUID = uuidv4();
 	const options = {
@@ -50,25 +53,43 @@ function GamePage(props) {
 
 	socket.on("initState", (data) => {
 		dispatch(initState(data));
+		dispatch(initHeaderState(data));
+	});
+
+	socket.on("initSpectatorList", (data) => {
+		dispatch(getSpectatorsList(data));
+	});
+
+	socket.on("playerLeave", (data) => {
+		console.log("playerLeave", data);
+		dispatch(deletePlayer(data));
 	});
 
 	socket.on("playerJoinedTheRoom", (data) => {
-		// TODO: update spectators list when new user is joined to the room
 		console.log("playerJoinedTheRoom", data);
-		dispatch(playerJoinedTheRoom(data));
+		dispatch(pushSpectators(data));
 	});
 
 	socket.on("hostUpdate", (data) => {
-		// TODO: update the host if the host is disconnected
 		console.log("hostUpdate", data);
 		dispatch(updateGameMaster(data));
 	});
+
+	const startGame = () => {
+		socket.emit("startGame", {}, (data) => {
+			if (!data.success) {
+				console.error(data.message);
+			} else {
+				console.log(data.message);
+			}
+		});
+	};
 
 	return (
 		<div className=" bg-cubes h-screen v-screen overflow-hidden">
 			<div className="grid sm:grid-cols-10 gap-10 font-pixel content-center h-screen">
 				<div className="m-auto sm:col-span-7">
-					<Header />
+					<Header socket={socket} startGame={startGame} />
 					<div className="grid grid-cols-9 gap-2 justify-items-center position-relative">
 						<div className=" col-span-2 justify-self-end">
 							<NextBlock />
