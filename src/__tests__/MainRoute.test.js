@@ -3,8 +3,9 @@ import { Provider } from "react-redux";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import MainRoute from "../Router/MainRoute";
 import store from "../store";
+import "setimmediate";
 
-/*
+/**
  * @jest-environment node
  */
 
