@@ -5,17 +5,15 @@ import MainRoute from "../Router/MainRoute";
 import store from "../store";
 import "setimmediate";
 
-/**
- * @jest-environment node
- */
-
 /* simple render test */
+
 describe("MainRoute", () => {
   it("should render", () => {
     render(<MainRoute />, { wrapper: BrowserRouter });
   });
 
   /* simulate http://localhost:3000/ as url */
+
   it("should render homepage when the pathname is '/' and hash is empty", () => {
     render(
       <MemoryRouter initialEntries={[{ pathname: "/", hash: "" }]}>
@@ -25,7 +23,8 @@ describe("MainRoute", () => {
     expect(screen.getByText(/Welcome to Red Tetris/i)).toBeInTheDocument();
   });
 
-  /* simulate http://localhost:3000/#room[username] as url */
+  /* simulate http://localhost:3000/#room[username] as url, here the gamepage needs the store that's why is wrapped by <Provider>*/
+
   it("should render gamepage when the pathname is '/' and the hash matches the regexp", () => {
     render(
       <Provider store={store}>
