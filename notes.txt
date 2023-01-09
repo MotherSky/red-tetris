@@ -1,0 +1,1 @@
+userUUID in spectatorArea is always undefined??

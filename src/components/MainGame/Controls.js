@@ -10,7 +10,6 @@ export default function Controls(props) {
 
   function checkKey(e) {
     e = e || window.event;
-    console.log(e);
     if (e.keyCode === 37) {
       if (isRunning && !gameOver) {
         props.socket.emit("goLeft");

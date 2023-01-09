@@ -15,5 +15,3 @@ describe("Scoreboard", () => {
     fireEvent.click(screen.getByText("RESTART"));
   });
 });
-
-//ScoreBoard.js|   72.72 | 66.66 | 75 | 70 | 19,24-33
