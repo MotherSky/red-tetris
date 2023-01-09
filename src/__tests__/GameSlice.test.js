@@ -25,31 +25,35 @@ describe("GameSlice", () => {
     playerList: [],
   };
   it("should init the state", () => {
-    //const state = store.getState().game;
-    const state = store.dispatch(initState(desiredState));
-    expect(state.payload).toEqual(desiredState);
+    store.dispatch(initState(desiredState));
+    const state = store.getState().game;
+    expect(state.username).toEqual(desiredState.username);
   });
   it("should get next rotation", () => {
     desiredState.nextShape = nextRotation(
       desiredState.shape,
       desiredState.rotation
     );
-    const state = store.dispatch(rotate(desiredState));
-    expect(state.payload.rotation).toEqual(desiredState.rotation);
+    store.dispatch(rotate(desiredState));
+    const state = store.getState().game;
+    expect(state.rotation).toEqual(desiredState.rotation);
   });
   it("should get move right", () => {
     desiredState.x += 1;
-    const state = store.dispatch(moveRight(desiredState));
-    expect(state.payload.x).toEqual(desiredState.x);
+    store.dispatch(moveRight(desiredState));
+    const state = store.getState().game;
+    expect(state.x).toEqual(desiredState.x);
   });
   it("should get move left", () => {
     desiredState.x -= 1;
-    const state = store.dispatch(moveLeft(desiredState));
-    expect(state.payload.x).toEqual(desiredState.x);
+    store.dispatch(moveLeft(desiredState));
+    const state = store.getState().game;
+    expect(state.x).toEqual(desiredState.x);
   });
   it("should get move down", () => {
     desiredState.y += 1;
-    const state = store.dispatch(moveDown(desiredState));
-    expect(state.payload.y).toEqual(desiredState.y);
+    store.dispatch(moveDown(desiredState));
+    const state = store.getState().game;
+    expect(state.y).toEqual(desiredState.y);
   });
 });
