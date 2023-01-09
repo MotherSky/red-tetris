@@ -21,7 +21,8 @@ function SpectatorArea() {
 								<p className="text-zinc-100">
 									{username} : {score} | cords: {x},{y}
 								</p>
-								{/* <NextBlock spectator={true} /> */}
+								{/* <NextBlock spectator={true} /> 
+								USERNAME HERE NOT NEEDED*/}
 								<GridBoard grid={grid} username={username} spectator={true} shape={shape} rotation={rotation} x={x} y={y} />
 							</div>
 						);
