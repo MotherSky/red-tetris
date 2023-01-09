@@ -8,7 +8,7 @@ import "setimmediate";
 /* simple render test */
 
 describe("MainRoute", () => {
-  it("should render", () => {
+  it("should render without crashing", () => {
     render(<MainRoute />, { wrapper: BrowserRouter });
   });
 

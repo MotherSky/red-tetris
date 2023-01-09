@@ -5,7 +5,7 @@ import HomePage from "../components/Pages/HomePage";
 /* simple render test */
 
 describe("HomePage", () => {
-  it("should render", () => {
+  it("should render without crashing", () => {
     render(<HomePage />, { wrapper: BrowserRouter });
   });
 
