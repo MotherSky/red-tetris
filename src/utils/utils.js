@@ -53,6 +53,7 @@ export const nextRotation = (shape, rotation) => {
 };
 
 export const possibleMove = (shape, grid, x, y, rotation) => {
+  console.log(shape, grid, x, y, rotation);
   const currentShape = shapes[shape][rotation];
   for (let row = 0; row < currentShape.length; row++) {
     for (let col = 0; col < currentShape[row].length; col++) {

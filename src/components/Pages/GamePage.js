@@ -36,7 +36,7 @@ function GamePage(props) {
     },
   };
   let socket = io("http://localhost:5000", options);
-
+  console.log(socket);
   socket.on("game-error", (message) => {
     console.log({ message });
   });
@@ -51,6 +51,7 @@ function GamePage(props) {
 
   socket.on("moveDown", (data) => {
     dispatch(moveDown(data));
+	
   });
 
   socket.on("moveRotate", (data) => {
