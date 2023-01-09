@@ -16,5 +16,5 @@ describe("Popup", () => {
     fireEvent.click(screen.getByText("PAUSE"));
     expect(screen.getByText(/the game is paused/i)).toBeInTheDocument();
   });
-  // gameOver can't be tested because there is nothing that sets it in client
+  // gameOver test
 });
