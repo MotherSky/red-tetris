@@ -27,7 +27,6 @@ describe("GameSlice", () => {
   it("should init the state", () => {
     //const state = store.getState().game;
     const state = store.dispatch(initState(desiredState));
-    console.log(state);
     expect(state.payload).toEqual(desiredState);
   });
   it("should get next rotation", () => {

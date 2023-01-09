@@ -12,13 +12,13 @@ import {
   moveRight,
   rotate,
 } from "../../Slice/GameSlice";
-import { initHeaderState, updateGameMaster } from "../../Slice/Header";
+import { initHeaderState, updateGameMaster } from "../../Slice/HeaderSlice";
 import {
   pushSpectators,
   onCollision,
   getSpectatorsList,
   deletePlayer,
-} from "../../Slice/Spectators";
+} from "../../Slice/SpectatorsSlice";
 import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
@@ -51,7 +51,6 @@ function GamePage(props) {
 
   socket.on("moveDown", (data) => {
     dispatch(moveDown(data));
-	
   });
 
   socket.on("moveRotate", (data) => {

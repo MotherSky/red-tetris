@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import SpectatorArea from "../components/MainGame/SpectatorArea";
-import { pushSpectators } from "../Slice/Spectators";
+import { pushSpectators } from "../Slice/SpectatorsSlice";
 import store from "../store";
 
 // mock data passed by server when pushing a new spectator

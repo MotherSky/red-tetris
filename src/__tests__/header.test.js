@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import store from "../store";
 import Header from "../components/MainGame/header";
-import { initHeaderState } from "../Slice/Header";
+import { initHeaderState } from "../Slice/HeaderSlice";
 
 describe("Header", () => {
   it("should render without crashing", () => {
