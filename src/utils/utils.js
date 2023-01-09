@@ -52,7 +52,7 @@ export const nextRotation = (shape, rotation) => {
   return (rotation + 1) % shapes[shape].length;
 };
 
-export const possibleMove = (shape, grid, x, y, rotation) => {
+/*export const possibleMove = (shape, grid, x, y, rotation) => {
   console.log(shape, grid, x, y, rotation);
   const currentShape = shapes[shape][rotation];
   for (let row = 0; row < currentShape.length; row++) {
@@ -78,11 +78,11 @@ export const possibleMove = (shape, grid, x, y, rotation) => {
     }
   }
   return true;
-};
+};*/
 
 // Adds the current shape to grid
 
-export const addBlockToGrid = (shape, grid, x, y, rotation) => {
+/*export const addBlockToGrid = (shape, grid, x, y, rotation) => {
   // At this point the game is not over
   let blockOffGrid = false;
   const block = shapes[shape][rotation];
@@ -103,10 +103,10 @@ export const addBlockToGrid = (shape, grid, x, y, rotation) => {
   }
   // Return both the newGrid and the gameOver bool
   return { grid: newGrid, gameOver: blockOffGrid };
-};
+};*/
 
 // Checks for completed rows and scores points
-export const checkRows = (grid) => {
+/*export const checkRows = (grid) => {
   // Points increase for each row completed
   // i.e. 40 points for completing one row, 100 points for two rows
   const points = [0, 40, 100, 300, 1200];
@@ -121,4 +121,4 @@ export const checkRows = (grid) => {
     }
   }
   return points[completedRows];
-};
+};*/

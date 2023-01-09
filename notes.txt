@@ -1,2 +1,3 @@
 userUUID in spectatorArea is always undefined??
 in spectatorArea, the username passed to GridBoard is never used
+in gameSlice: init, rotate, and moves are all the same
