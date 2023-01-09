@@ -1,1 +1,2 @@
 userUUID in spectatorArea is always undefined??
+in spectatorArea, the username passed to GridBoard is never used

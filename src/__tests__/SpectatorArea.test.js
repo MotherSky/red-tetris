@@ -60,6 +60,3 @@ describe("Spectator Area", () => {
     );
   });
 });
-
-//  SpectatorArea.js | 55.55 | 0 | 66.66 | 50 |17-30
-//  SpectatorArea.js | 88.88 | 50 | 100 | 87.5 | 51
