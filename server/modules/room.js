@@ -52,8 +52,8 @@ const Rooms = class {
 				if (checkPlayersExist(this.rooms[roomName].players, userName)) {
 					throw new Error("There is a player with the same user name in the room");
 				}
-				//check for the game if already started 
-				if (this.rooms[roomName].interval){
+				//check for the game if already started
+				if (this.rooms[roomName].interval) {
 					throw new Error("the game is already started");
 				}
 				this.rooms[roomName].players[userUUID] = new Player(userUUID, userName, roomName, io, this.rooms[roomName].genaratedTetros);
@@ -102,7 +102,7 @@ const Rooms = class {
 				players.push(playerState);
 			}
 		}
-		return players
+		return players;
 	}
 
 	destroyRoom(name) {
@@ -110,14 +110,16 @@ const Rooms = class {
 	}
 
 	gameStart(name, speed) {
-		console.log(Object.keys(this.rooms[name].players));
-		//TODO -- check if the host is the emitter
-		this.rooms[name].interval = setInterval(() => {
-			let players = [];
+		this.rooms[name].interval = setInterval(async () => {
 			for (const [key, value] of Object.entries(this.rooms[name].players)) {
+				
 				value.moveDown();
+				// console.log(value.username, value.comlitedLines);
+				if (value.comlitedLines) {
+					console.log(value.username, value.comlitedLines);
+					await this.pushLineToPlayersBoard(value.inRoom, value.uuid, value.comlitedLines);
+				}
 				const playerState = value.getPlayer();
-				players.push(playerState);
 				//generate more tetros for the players if one of the players reatch the compilte hes tetros
 				if (value.generatedTetrosIndexer === this.rooms[name].genaratedTetros.length - 2) {
 					this.pushRandoTetros(name);
@@ -131,6 +133,15 @@ const Rooms = class {
 		this.rooms[roomName].genaratedTetros = [...this.rooms[roomName].genaratedTetros, ...RandomTetros(8)];
 		for (const [key, value] of Object.entries(this.rooms[roomName].players)) {
 			value.updateGeneratedTetros(this.rooms[roomName].genaratedTetros);
+		}
+	}
+
+	pushLineToPlayersBoard(roomName, uuid, numberOfLines) {
+		for (const [key, value] of Object.entries(this.rooms[roomName].players)) {
+			if (value.uuid !== uuid) {
+				value.pushLines(numberOfLines);
+				this.rooms[roomName].socket.to(value.uuid).emit("moveDown", value.getPlayer());
+			}
 		}
 	}
 };

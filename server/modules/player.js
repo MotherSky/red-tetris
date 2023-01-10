@@ -26,6 +26,7 @@ const Player = class {
 		this.inRoom = inRoom;
 		this.grid = new Grid(20, 10);
 		this.score = 0;
+		this.comlitedLines = 0
 		this.lines = 0;
 		this.rotation = 0;
 		this.x = 4;
@@ -55,6 +56,7 @@ const Player = class {
 			gameOver: this.gameOver,
 			generatedTetros: this.generatedTetros,
 			generatedTetrosIndexer: this.generatedTetrosIndexer,
+			comlitedLines: this.comlitedLines
 		};
 	};
 
@@ -118,14 +120,16 @@ const Player = class {
 		let completedRows = 0;
 		for (let row = 0; row < grid.length; row++) {
 			// No empty cells means it can't find a 0, so the row must be complete!
-			if (grid[row].indexOf(0) === -1) {
+			if (grid[row].indexOf(0) === -1 && grid[row].indexOf(8) === -1) {
 				completedRows += 1;
 				// Remove the row and add a new empty one at the top
 				grid.splice(row, 1);
 				grid.unshift(Array(10).fill(0));
 			}
 		}
-		return points[completedRows];
+
+		// [ ] todo - add new line for other players
+		return { score: points[completedRows], completedRows };
 	};
 
 	nextRotation = (shape, rotation) => {
@@ -159,8 +163,7 @@ const Player = class {
 		if (this.possibleMove(this.shape, this.grid.playground, this.x, maybeY, this.rotation)) {
 			// If so move down don't place the block
 			this.y = maybeY;
-			this.socket.to(this.uuid).emit("moveDown", this.getPlayer());
-			return this;
+			return this.getPlayer();
 		}
 		// If not place the block
 		// (this returns an object with a grid and gameover bool)
@@ -173,25 +176,35 @@ const Player = class {
 			this.shape = 0;
 			this.grid.playground = newGrid;
 			this.gameOver = true;
-			this.socket.to(this.uuid).emit("moveDown", this.getPlayer());
-			return this;
+			return this.getPlayer();
 		}
 		// reset somethings to start a new shape/block
 		this.generatedTetrosIndexer += 1;
 		this.shape = this.generatedTetros[this.generatedTetrosIndexer];
 		this.nextShape = this.generatedTetros[this.generatedTetrosIndexer + 1];
 		this.grid.playground = newGrid;
-		this.score = this.score + this.checkRows(newGrid);
-		//thismit to the room the player data
-
+		const chechRow = this.checkRows(newGrid)
+		this.comlitedLines = chechRow.completedRows
+		this.lines += chechRow.completedRows
+		this.score = this.score + chechRow.score;
 		this.socket.to(this.inRoom).emit("playerTetroCollision", this.getPlayer());
 		this.rotation = 0;
 		this.x = 4;
 		this.y = -4;
-		this.socket.to(this.uuid).emit("moveDown", this.getPlayer());
 		
-		return this;
+		return this.getPlayer();
 	};
+
+	pushLines(numberOfLines) {
+		for (let i = 0; i < numberOfLines; i++) {
+			const emptyLine = this.grid.playground[0].every((val) => val === 0);
+			if (emptyLine) {
+				this.grid.playground.shift();
+				// [ ] - add random line for the solid part (for more chnages)
+				this.grid.playground.push([8, 8, 8, 8, 8, 8, 8, 8, 8, 8]);
+			}
+		}
+	}
 };
 
 exports.Player = Player;

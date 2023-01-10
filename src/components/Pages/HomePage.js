@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const UsernameGenerator = require("username-generator");
 

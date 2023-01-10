@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import SpectatorArea from "../MainGame/SpectatorArea";
 import NextBlock from "../MainGame/NextBlock";
 import ScoreBoard from "../MainGame/ScoreBoard";
@@ -22,10 +22,9 @@ import {
 import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
-import Header from "../MainGame/header";
+import Header from "../MainGame/Header";
 
 function GamePage(props) {
-  const ref = useRef();
   const dispatch = useDispatch();
   const userUUID = uuidv4();
   const options = {
@@ -101,7 +100,7 @@ function GamePage(props) {
     <div className=" bg-cubes h-screen v-screen overflow-hidden">
       <div className="grid sm:grid-cols-10 gap-10 font-pixel content-center h-screen">
         <div className="m-auto sm:col-span-7">
-          <Header socket={socket} startGame={startGame} />
+          <Header startGame={startGame} />
           <div className="grid grid-cols-9 gap-2 justify-items-center position-relative">
             <div className=" col-span-2 justify-self-end">
               <NextBlock />

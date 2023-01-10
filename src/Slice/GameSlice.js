@@ -23,6 +23,7 @@ export const gameSlice = createSlice({
 				gameOver: data.payload.gameOver,
 				uuid: data.payload.uuid,
 				username: data.payload.username,
+				lines: data.payload.lines,
 				playersList: [],
 			};
 			state = newState;
@@ -44,6 +45,7 @@ export const gameSlice = createSlice({
 				gameOver: data.payload.gameOver,
 				uuid: data.payload.uuid,
 				username: data.payload.username,
+				lines: data.payload.lines,
 			};
 			state = newState;
 			return state;
@@ -64,6 +66,7 @@ export const gameSlice = createSlice({
 				gameOver: data.payload.gameOver,
 				uuid: data.payload.uuid,
 				username: data.payload.username,
+				lines: data.payload.lines,
 			};
 			state = newState;
 			return state;
@@ -84,6 +87,7 @@ export const gameSlice = createSlice({
 				gameOver: data.payload.gameOver,
 				uuid: data.payload.uuid,
 				username: data.payload.username,
+				lines: data.payload.lines,
 			};
 			state = newState;
 			return state;
@@ -104,6 +108,7 @@ export const gameSlice = createSlice({
 				gameOver: data.payload.gameOver,
 				uuid: data.payload.uuid,
 				username: data.payload.username,
+				lines: data.payload.lines,
 			};
 			state = newState;
 			return state;

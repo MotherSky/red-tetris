@@ -37,7 +37,7 @@ module.exports = {
 					throw new Error("missing params");
 				}
 
-				//[ ] task - game start emit
+				// [x] task - game start emit
 				socket.on("startGame", async (data, cb) => {
 					if (Rooms.rooms[roomName].host !== userUUID) {
 						cb({ success: false, message: "You are not the master of the room" });
@@ -59,9 +59,16 @@ module.exports = {
 					let player = roomData.players[userUUID].getPlayer();
 					//generate more tetros for the players if one of the players reatch the compilte hes tetros
 					if (player.generatedTetrosIndexer === roomData.genaratedTetros.length - 2) {
-						Rooms.pushRandoTetros(roomName);
+						await Rooms.pushRandoTetros(roomName);
 					}
-					roomData.players[userUUID].moveDown();
+
+					const data = await roomData.players[userUUID].moveDown();
+					if (data.comlitedLines) {
+						await Rooms.pushLineToPlayersBoard(data.inRoom, data.uuid, data.comlitedLines);
+						roomData.players[userUUID].comlitedLines = 0
+					}
+					
+					socket.emit("moveDown", data);
 				});
 
 				socket.on("goRight", async () => {
