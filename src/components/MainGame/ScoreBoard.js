@@ -15,12 +15,9 @@ export default function ScoreBoard() {
       <button
         className="score-board-button"
         onClick={(e) => {
-          if (gameOver) {
-            return;
-          }
-          if (isRunning) {
+          if (isRunning && !gameOver) {
             dispatch(pause());
-          } else {
+          } else if (!isRunning && !gameOver) {
             dispatch(resume());
           }
         }}

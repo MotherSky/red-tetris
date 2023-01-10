@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import headerReducer from "../Slice/Header";
+import headerReducer from "../Slice/HeaderSlice";
 import gameReducer from "../Slice/GameSlice";
-import spectatorsReducer from '../Slice/Spectators'
+import spectatorsReducer from "../Slice/SpectatorsSlice";
 
 const store = configureStore({
-	reducer: {
-		header: headerReducer,
-		game: gameReducer,
-        spectators: spectatorsReducer
-	},
+  reducer: {
+    header: headerReducer,
+    game: gameReducer,
+    spectators: spectatorsReducer,
+  },
 });
 
 export default store;

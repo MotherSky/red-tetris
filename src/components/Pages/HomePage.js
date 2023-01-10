@@ -3,7 +3,7 @@ import { Redirect, Route, useNavigate } from "react-router-dom";
 
 const UsernameGenerator = require("username-generator");
 
-function HomePage(props) {
+function HomePage() {
   const navigate = useNavigate();
   const joinRoom = (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ function HomePage(props) {
           Puzzle together in this modern online Tetris, Play against friends all
           over the world
         </h3>
-        <form onSubmit={joinRoom}>
+        <form data-testid="form" onSubmit={joinRoom}>
           <label className="text-white block">
             enter a username to join, or leave it blank to get a random one
           </label>
