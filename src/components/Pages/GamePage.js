@@ -35,7 +35,7 @@ function GamePage(props) {
     },
   };
   let socket = io("http://localhost:5000", options);
-  console.log(socket);
+  // console.log(socket);
   socket.on("game-error", (message) => {
     console.log({ message });
   });
@@ -84,6 +84,10 @@ function GamePage(props) {
   socket.on("hostUpdate", (data) => {
     console.log("hostUpdate", data);
     dispatch(updateGameMaster(data));
+  });
+
+  socket.on("winner", (data) => {
+    console.log("im a winner", data);
   });
 
   const startGame = () => {

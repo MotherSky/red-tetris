@@ -17,7 +17,7 @@ function MainRoute() {
 
   const regexp = /^#\w+\[\w+]$/;
   const { hash, pathname } = useLocation();
-  console.log(useLocation());
+  // console.log(useLocation());
   if (pathname === "/" && !hash) {
     return <HomePage />;
   }

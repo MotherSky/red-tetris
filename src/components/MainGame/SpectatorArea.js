@@ -15,12 +15,38 @@ function SpectatorArea() {
       </div>
       <div className={"flex flex-col items-center gap-10"}>
         {playersList.map(
-          ({ uuid, username, score, x, y, grid, shape, rotation, lines }) => {
+          ({
+            uuid,
+            username,
+            score,
+            x,
+            y,
+            grid,
+            shape,
+            rotation,
+            lines,
+            gameOver,
+            winner
+          }) => {
             return (
               <div
                 key={uuid}
                 className="uppercase  max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700"
               >
+                {gameOver ? (
+                  <p className="text-red-400 font-semibold">
+                    this player is Lost
+                  </p>
+                ) : (
+                  ""
+                )}
+                {winner ? (
+                  <p className="text-green-400 font-semibold">
+                    Winner of the game
+                  </p>
+                ) : (
+                  ""
+                )}
                 <p className="text-black-100 font-semibold">
                   username : {username}
                 </p>

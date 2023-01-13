@@ -33,6 +33,7 @@ const Player = class {
 		this.y = -4;
 		this.isRunning = true;
 		this.gameOver = false;
+		this.winner = false;
 		this.generatedTetros = generatedTetros;
 		this.generatedTetrosIndexer = 0;
 		this.shape = this.generatedTetros[this.generatedTetrosIndexer];
@@ -56,7 +57,8 @@ const Player = class {
 			gameOver: this.gameOver,
 			generatedTetros: this.generatedTetros,
 			generatedTetrosIndexer: this.generatedTetrosIndexer,
-			comlitedLines: this.comlitedLines
+			comlitedLines: this.comlitedLines,
+			winner: this.winner
 		};
 	};
 
@@ -176,7 +178,9 @@ const Player = class {
 			this.shape = 0;
 			this.grid.playground = newGrid;
 			this.gameOver = true;
-			return this.getPlayer();
+			const player = this.getPlayer();
+			this.socket.to(this.inRoom).emit("playerTetroCollision", player);
+			return player;
 		}
 		// reset somethings to start a new shape/block
 		this.generatedTetrosIndexer += 1;
@@ -204,6 +208,12 @@ const Player = class {
 				this.grid.playground.push([8, 8, 8, 8, 8, 8, 8, 8, 8, 8]);
 			}
 		}
+	}
+
+	setWinner() {
+		this.winner = true
+		const player = this.getPlayer()
+		return player
 	}
 };
 
