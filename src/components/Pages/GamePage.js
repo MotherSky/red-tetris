@@ -6,6 +6,7 @@ import Controls from "../MainGame/Controls";
 import MasterBoard from "../MainGame/MasterBoard";
 import Popup from "../MainGame/Popup";
 import {
+  gameWinner,
   initState,
   moveDown,
   moveLeft,
@@ -88,6 +89,7 @@ function GamePage(props) {
 
   socket.on("winner", (data) => {
     console.log("im a winner", data);
+    dispatch(gameWinner(data))
   });
 
   const startGame = () => {

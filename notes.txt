@@ -4,6 +4,10 @@ in gameSlice: init, rotate, and moves are all the same
 
 
 
+mandatory:
+// [x] winner / loser 
+// [x] spectators 
+
 bonus:
 
 // [x] - score

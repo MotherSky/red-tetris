@@ -11,8 +11,8 @@
  * nextShape			// next index of shape
  * grid                 // grid [grid interface]
  * inRoom               // current room name the player in
- * isRunning			// player pause
  * gameOver				// player lost
+ * winner				// winner of the game	
  */
 
 const { Grid } = require("./grid");
@@ -31,7 +31,6 @@ const Player = class {
 		this.rotation = 0;
 		this.x = 4;
 		this.y = -4;
-		this.isRunning = true;
 		this.gameOver = false;
 		this.winner = false;
 		this.generatedTetros = generatedTetros;
@@ -53,7 +52,6 @@ const Player = class {
 			rotation: this.rotation,
 			x: this.x,
 			y: this.y,
-			isRunning: this.isRunning,
 			gameOver: this.gameOver,
 			generatedTetros: this.generatedTetros,
 			generatedTetrosIndexer: this.generatedTetrosIndexer,
@@ -204,7 +202,7 @@ const Player = class {
 			const emptyLine = this.grid.playground[0].every((val) => val === 0);
 			if (emptyLine) {
 				this.grid.playground.shift();
-				// [ ] - add random line for the solid part (for more chnages)
+				// [x] - add random line for the solid part (for more chnages)
 				this.grid.playground.push([8, 8, 8, 8, 8, 8, 8, 8, 8, 8]);
 			}
 		}

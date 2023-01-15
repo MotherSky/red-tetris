@@ -72,7 +72,7 @@ module.exports = {
           let roomData = Rooms.rooms[roomName];
           let player = roomData.players[userUUID].getPlayer();
 
-          // [ ] check for game winner and stop the game
+          // [x] check for game winner and stop the game
           await Rooms.checkForWinner(roomName, userUUID);
 
 

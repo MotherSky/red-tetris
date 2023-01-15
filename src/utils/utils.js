@@ -40,7 +40,6 @@ export const defaultState = () => {
     y: -4,
     nextShape: randomShape(),
     score: 0,
-    speed: 1000,
     isRunning: true,
     gameOver: false,
   };

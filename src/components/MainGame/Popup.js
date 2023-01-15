@@ -4,12 +4,10 @@ import { useSelector } from "react-redux";
 
 export default function Popup(props) {
   const gameState = useSelector((state) => state.game);
-  const { isRunning, gameOver } = gameState;
+  const { isRunning, gameOver, winner } = gameState;
+
+  console.log({ winner, isRunning });
   const messages = {
-    pause: {
-      title: "Game Paused",
-      info: "The game is Paused, press Resume to continue playing",
-    },
     over: {
       title: "Game Over",
       info: "The game is over, click Restart to play again",
@@ -18,6 +16,10 @@ export default function Popup(props) {
       title: "Error",
       info: "Why is this showing??",
     },
+    winner: {
+      title: "Game Winner",
+      info: `The game is over, the winner is "${winner?.username}" with the score "${winner?.score}"`,
+    },
   };
 
   let messageType = "error";
@@ -25,10 +27,11 @@ export default function Popup(props) {
   if (gameOver) {
     hidden = "";
     messageType = "over";
-  } else if (!isRunning) {
+  } else if (winner) {
     hidden = "";
-    messageType = "pause";
+    messageType = "winner";
   }
+
   return (
     //<div className="message-popup">
     <div className={`uppercase message-popup ${hidden} ${messageType}`}>
