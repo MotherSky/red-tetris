@@ -2,17 +2,19 @@ userUUID in spectatorArea is always undefined??
 in spectatorArea, the username passed to GridBoard is never used
 in gameSlice: init, rotate, and moves are all the same
 
-
+errors: 
+// [ ] - page not re-render after chnaging the hash in the first time
 
 mandatory:
 // [x] winner / loser 
 // [x] spectators 
+// [x] duplicated username
+// [x] game start
 
 bonus:
 
 // [x] - score
 // [x] - random username
-
 // [ ] - space to goDown buttom
 // [ ] - Have a persistence of these scores for each player.
 // [ ] - chat emojis

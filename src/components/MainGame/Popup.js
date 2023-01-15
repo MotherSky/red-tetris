@@ -4,9 +4,11 @@ import { useSelector } from "react-redux";
 
 export default function Popup(props) {
   const gameState = useSelector((state) => state.game);
-  const { isRunning, gameOver, winner } = gameState;
+  const uiState = useSelector((state) => state.ui);
+  const { gameOver, winner } = gameState;
+  const { errorMsg } = uiState;
 
-  console.log({ winner, isRunning });
+  console.log({ gameOver, winner, errorMsg });
   const messages = {
     over: {
       title: "Game Over",
@@ -24,7 +26,11 @@ export default function Popup(props) {
 
   let messageType = "error";
   let hidden = "hidden";
-  if (gameOver) {
+  if (errorMsg) {
+    hidden = "";
+    messageType = "error";
+    messages[messageType].info = errorMsg;
+  } else if (gameOver) {
     hidden = "";
     messageType = "over";
   } else if (winner) {

@@ -128,7 +128,6 @@ const Player = class {
 			}
 		}
 
-		// [ ] todo - add new line for other players
 		return { score: points[completedRows], completedRows };
 	};
 

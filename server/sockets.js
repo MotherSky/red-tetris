@@ -52,11 +52,13 @@ module.exports = {
               success: false,
               message: "You are not the master of the room",
             });
+            return 
           }
           if (Rooms.rooms[roomName].interval) {
             cb({ success: false, message: "the game already started" });
+            return
           }
-          Rooms.gameStart(roomName, 1000);
+          Rooms.gameStart(roomName, 1270);
           cb({ success: true, message: "game is sterted" });
         });
 
@@ -113,6 +115,10 @@ module.exports = {
             Rooms.rooms[roomName].players[userUUID].getPlayer()
           );
         });
+
+        socket.on("chat", async (data) => {
+          socket.to(roomName).emit("emox", {emoji: data, uuid: userUUID});
+        })
 
         socket.on("disconnect", async () => {
           console.log(`disconnect user [${userUUID} | ${userName}]`);

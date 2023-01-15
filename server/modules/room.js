@@ -127,24 +127,30 @@ const Rooms = class {
   gameStart(name, speed) {
     this.rooms[name].interval = setInterval(async () => {
       for (const [key, value] of Object.entries(this.rooms[name].players)) {
-        value.moveDown();
-        // console.log(value.username, value.comlitedLines);
-        if (value.comlitedLines) {
-          console.log(value.username, value.comlitedLines);
-          await this.pushLineToPlayersBoard(
-            value.inRoom,
-            value.uuid,
-            value.comlitedLines
-          );
-        }
         const playerState = value.getPlayer();
-        //generate more tetros for the players if one of the players reatch the compilte hes tetros
+
+        // [x] check for game winner and stop the game
+        await this.checkForWinner(name, value.uuid);
+
+        /// [x] generate more tetros for the players if one of the players reatch the compilte hes tetros
         if (
           value.generatedTetrosIndexer ===
           this.rooms[name].genaratedTetros.length - 2
         ) {
-          this.pushRandoTetros(name);
+          await this.pushRandoTetros(name);
         }
+
+        // [x] add line (n -1) for other users
+        const data = await this.rooms[name].players[value.uuid].moveDown();
+        if (data.comlitedLines) {
+          await this.pushLineToPlayersBoard(
+            data.inRoom,
+            data.uuid,
+            data.comlitedLines
+          );
+          this.rooms[name].players[data.uuid].comlitedLines = 0;
+        }
+
         this.rooms[name].socket.to(key).emit("moveDown", playerState);
       }
     }, speed);
@@ -174,21 +180,24 @@ const Rooms = class {
   checkForWinner(roomName, userUUID) {
     let lost = 0;
     const room = this.rooms[roomName];
-    for (const [key, value] of Object.entries(room.players)) {
-      if (value.uuid !== userUUID && value.gameOver) {
-        lost += 1;
+    if (Object.keys(room.players).length > 1) {
+      for (const [key, value] of Object.entries(room.players)) {
+        if (value.uuid !== userUUID && value.gameOver) {
+          lost += 1;
+        }
       }
-    }
 
-    if (Object.keys(room.players).length - 1 === lost) {
-      room.players[userUUID].setWinner();
-      room.socket
-        .to(roomName)
-        .emit("winner", room.players[userUUID].getPlayer());
-      room.gameDone = true;
-      clearInterval(room.interval);
+      if (Object.keys(room.players).length - 1 === lost) {
+        room.players[userUUID].setWinner();
+        room.socket
+          .to(roomName)
+          .emit("winner", room.players[userUUID].getPlayer());
+        room.gameDone = true;
+        clearInterval(this.rooms[roomName].interval);
+      }
+      return Object.keys(room.players).length - 1 === lost;
     }
-    return Object.keys(room.players).length - 1 === lost;
+    return false;
   }
 };
 

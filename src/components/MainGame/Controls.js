@@ -29,52 +29,83 @@ export default function Controls(props) {
     }
   }
 
+  
+
   return (
     <div className="controls">
-      <button
-        disabled={!isRunning || gameOver}
-        className="control-button left-button"
-        onClick={(e) => {
-          if (isRunning && !gameOver) {
-            props.socket.emit("goLeft");
-          }
-        }}
-      >
-        ←
-      </button>
-      <button
-        disabled={!isRunning || gameOver}
-        className="control-button right-button"
-        onClick={(e) => {
-          if (isRunning && !gameOver) {
-            props.socket.emit("goRight");
-          }
-        }}
-      >
-        →
-      </button>
-      <button
-        disabled={!isRunning || gameOver}
-        className="control-button up-button"
-        onClick={(e) => {
-          if (isRunning && !gameOver) {
-            props.socket.emit("rotate");
-          }
-        }}
-      >
-        ↑
-      </button>
-      <button
-        disabled={!isRunning || gameOver}
-        className="control-button down-button"
-        onClick={(e) => {
-          if (isRunning && !gameOver) {
-            props.socket.emit("goDown");
-          }
-        }}
-      >
-        ↓
-      </button>
+      <div className="flex space-x-2 justify-center">
+        <div>
+          <h1 className="m-5 text-zinc-200 text-2xl uppercase text-center">
+            emox chat
+          </h1>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-blue-600 text-white text-xs  uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (isRunning && !gameOver) {
+                props.socket.emit("chat", "😀");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>😀</span>
+          </button>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-purple-600 text-white font-medium text-xs  uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (isRunning && !gameOver) {
+                props.socket.emit("chat", "😂");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>😂</span>
+          </button>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-green-500 text-white font-medium text-xs  uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (isRunning && !gameOver) {
+                props.socket.emit("chat", "💩");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>💩</span>
+          </button>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-red-600 text-white font-medium text-xs  uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (isRunning && !gameOver) {
+                props.socket.emit("chat", "😱");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>😱</span>
+          </button>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-yellow-500 text-white font-medium text-xs  uppercase rounded shadow-md hover:bg-yellow-600 hover:shadow-lg focus:bg-yellow-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-700 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (isRunning && !gameOver) {
+                props.socket.emit("chat", "🤬");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>🤬</span>
+          </button>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-blue-400 text-white font-medium text-xs  uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (isRunning && !gameOver) {
+                props.socket.emit("chat", "😈");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>😈</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

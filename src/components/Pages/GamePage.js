@@ -24,6 +24,7 @@ import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import Header from "../MainGame/Header";
+import { onError } from "../../Slice/Ui";
 
 function GamePage(props) {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ function GamePage(props) {
   // console.log(socket);
   socket.on("game-error", (message) => {
     console.log({ message });
+    dispatch(onError(message));
   });
 
   socket.on("moveLeft", (data) => {
@@ -89,8 +91,14 @@ function GamePage(props) {
 
   socket.on("winner", (data) => {
     console.log("im a winner", data);
-    dispatch(gameWinner(data))
+    dispatch(gameWinner(data));
   });
+
+  socket.on("emox", (data) => {
+    console.log("emit emox", data);
+  });
+
+  
 
   const startGame = () => {
     socket.emit("startGame", {}, (data) => {
