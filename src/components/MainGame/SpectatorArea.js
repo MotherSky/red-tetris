@@ -7,13 +7,13 @@ function SpectatorArea() {
 
   const playersList = store.playersList;
   return (
-    <div className="my-12">
+    <div className="my-12 flex flex-col items-center justify-center ">
       <div>
         <h1 className="m-5 text-zinc-200 text-2xl uppercase text-center">
           Spectator area
         </h1>
       </div>
-      <div className={"flex flex-col items-center gap-10"}>
+      <div className={"flex flex-col items-center gap-10 w-full"}>
         {playersList.map(
           ({
             uuid,
@@ -26,16 +26,16 @@ function SpectatorArea() {
             rotation,
             lines,
             gameOver,
-            winner
+            winner,
           }) => {
             return (
               <div
                 key={uuid}
-                className="uppercase  max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700"
+                className="uppercase  max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-full"
               >
                 {gameOver ? (
                   <p className="text-red-400 font-semibold">
-                    this player is Lost
+                    this player has Lost
                   </p>
                 ) : (
                   ""
@@ -47,7 +47,7 @@ function SpectatorArea() {
                 ) : (
                   ""
                 )}
-                <p className="text-black-100 font-semibold">
+                <p className="text-black-100 font-semibold break-all">
                   username : {username}
                 </p>
                 <p className="text-black-100 font-semibold">score : {score}</p>
