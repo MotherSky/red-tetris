@@ -12,6 +12,7 @@ import {
   moveLeft,
   moveRight,
   rotate,
+  emox,
 } from "../../Slice/GameSlice";
 import { initHeaderState, updateGameMaster } from "../../Slice/HeaderSlice";
 import {
@@ -19,6 +20,7 @@ import {
   onCollision,
   getSpectatorsList,
   deletePlayer,
+  onEmox,
 } from "../../Slice/SpectatorsSlice";
 import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
@@ -96,9 +98,8 @@ function GamePage(props) {
 
   socket.on("emox", (data) => {
     console.log("emit emox", data);
+    dispatch(onEmox(data));
   });
-
-  
 
   const startGame = () => {
     socket.emit("startGame", {}, (data) => {

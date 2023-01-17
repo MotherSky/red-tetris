@@ -27,14 +27,16 @@ function SpectatorArea() {
             lines,
             gameOver,
             winner,
+            emox,
           }) => {
+            console.log("SPECCC: ", emox);
             return (
               <div
                 key={uuid}
                 className="uppercase  max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-full"
               >
                 {gameOver ? (
-                  <p className="text-red-400 font-semibold">
+                  <p className="text-red-400 font-semibold ">
                     this player has Lost
                   </p>
                 ) : (
@@ -47,19 +49,26 @@ function SpectatorArea() {
                 ) : (
                   ""
                 )}
-                <p className="text-black-100 font-semibold break-all">
+                <p className="text-black-100 font-semibold break-all text-center">
                   username : {username}
                 </p>
-                <p className="text-black-100 font-semibold">score : {score}</p>
-                <p className="text-black-100 font-semibold">Lines : {lines}</p>
-                <GridBoard
-                  grid={grid}
-                  spectator={true}
-                  shape={shape}
-                  rotation={rotation}
-                  x={x}
-                  y={y}
-                />
+                <p className="text-black-100 font-semibold text-center">
+                  score : {score}
+                </p>
+                <p className="text-black-100 font-semibold text-center">
+                  Lines : {lines}
+                </p>
+                <div className="container-grid-emoji flex gap-5 justify-center items-center">
+                  <GridBoard
+                    grid={grid}
+                    spectator={true}
+                    shape={shape}
+                    rotation={rotation}
+                    x={x}
+                    y={y}
+                  />
+                  <div className="emoji">{emox}</div>
+                </div>
               </div>
             );
           }

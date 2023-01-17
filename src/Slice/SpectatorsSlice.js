@@ -41,10 +41,23 @@ export const Spectators = createSlice({
 
       return { ...state, playersList: array };
     },
+    onEmox: (state, data) => {
+      const array = [...state.playersList];
+      let index = array.findIndex((e) => e.uuid === data.payload.uuid);
+      if (index >= 0) {
+        array[index].emox = data.payload.emoji;
+      }
+      console.log("onEmox specslice: ", data.payload.emoji);
+    },
   },
 });
 
-export const { pushSpectators, onCollision, getSpectatorsList, deletePlayer } =
-  Spectators.actions;
+export const {
+  pushSpectators,
+  onCollision,
+  getSpectatorsList,
+  deletePlayer,
+  onEmox,
+} = Spectators.actions;
 
 export default Spectators.reducer;
