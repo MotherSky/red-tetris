@@ -41,13 +41,21 @@ export const Spectators = createSlice({
 
       return { ...state, playersList: array };
     },
-    onEmox: (state, data) => {
+    showEmoji: (state, data) => {
       const array = [...state.playersList];
       let index = array.findIndex((e) => e.uuid === data.payload.uuid);
       if (index >= 0) {
-        array[index].emox = data.payload.emoji;
+        array[index].emoji = data.payload.emoji;
       }
-      console.log("onEmox specslice: ", data.payload.emoji);
+      console.log("showEmoji specslice: ", data.payload.emoji);
+    },
+    hideEmoji: (state, data) => {
+      const array = [...state.playersList];
+      let index = array.findIndex((e) => e.uuid === data.payload);
+      if (index >= 0) {
+        array[index].emoji = undefined;
+      }
+      console.log("hideEmoji specslice: ");
     },
   },
 });
@@ -57,7 +65,8 @@ export const {
   onCollision,
   getSpectatorsList,
   deletePlayer,
-  onEmox,
+  showEmoji,
+  hideEmoji,
 } = Spectators.actions;
 
 export default Spectators.reducer;

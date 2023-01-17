@@ -24,7 +24,7 @@ export const gameSlice = createSlice({
         username: data.payload.username,
         lines: data.payload.lines,
         winner: undefined,
-        emox: undefined,
+        emoji: undefined,
       };
       state = newState;
       return state;

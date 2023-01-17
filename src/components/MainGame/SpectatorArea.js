@@ -1,11 +1,21 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { hideEmoji } from "../../Slice/SpectatorsSlice";
 import GridBoard from "./GridBoard";
 
 function SpectatorArea() {
+  const dispatch = useDispatch();
   const store = useSelector((state) => state.spectators);
 
   const playersList = store.playersList;
+  //Create a boolean when true it shows the emoji, and after 4secs it becomes false
+  console.log("Before showEmoji: ");
+  // const [showEmoji, setShowEmoji] = React.useState(true);
+  // useEffect(() => {
+  //   setTimeout(function () {
+  //     setShowEmoji(false);
+  //   }, 4000);
+  // }, []);
   return (
     <div className="my-12 flex flex-col items-center justify-center ">
       <div>
@@ -27,9 +37,13 @@ function SpectatorArea() {
             lines,
             gameOver,
             winner,
-            emox,
+            emoji,
           }) => {
-            console.log("SPECCC: ", emox);
+            console.log("emoji: ", emoji);
+            setTimeout(() => {
+              dispatch(hideEmoji(uuid));
+              console.log("emoji hidden");
+            }, 4000);
             return (
               <div
                 key={uuid}
@@ -67,7 +81,9 @@ function SpectatorArea() {
                     x={x}
                     y={y}
                   />
-                  <div className="emoji">{emox}</div>
+                  <div className="text-4xl">
+                    {/*showEmoji ? emoji : ""*/ emoji}
+                  </div>
                 </div>
               </div>
             );
