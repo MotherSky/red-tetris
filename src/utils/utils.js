@@ -43,5 +43,6 @@ export const defaultState = () => {
     isRunning: true,
     gameOver: false,
     winner: undefined,
+    gameStart: false
   };
 };

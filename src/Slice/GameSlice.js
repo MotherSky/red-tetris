@@ -25,6 +25,7 @@ export const gameSlice = createSlice({
         lines: data.payload.lines,
         winner: undefined,
         emoji: undefined,
+        gameStart: false
       };
       state = newState;
       return state;
@@ -111,8 +112,12 @@ export const gameSlice = createSlice({
     },
 
     gameWinner: (state, data) => {
-      return { ...state, winner: data.payload, isRunning: false };
+      return { ...state, winner: data.payload };
     },
+
+    gameStarted: (state) => {
+      return { ...state, gameStart: true };
+    }
   },
 });
 
@@ -124,6 +129,7 @@ export const {
   restart,
   initState,
   gameWinner,
+  gameStarted
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

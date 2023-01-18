@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import gameSound from "./tetris.mp3";
+const audio = new Audio(gameSound);
+audio.loop = true;
 
 let initialState = {
-  errorMsg: null
-}
+  errorMsg: null,
+  mute: false,
+};
 
 export const Uislice = createSlice({
   name: "ui",
@@ -14,12 +18,17 @@ export const Uislice = createSlice({
     onError: (state, data) => {
       return { ...state, errorMsg: data.payload };
     },
+    audioPlay: (state) => {
+      audio.play();
+      return { ...state, mute: false };
+    },
+    audioStop: (state) => {
+      audio.pause();
+      return { ...state, mute: true };
+    },
   },
 });
 
-export const {
-  initError,
-  onError
-} = Uislice.actions;
+export const { initError, onError, audioPlay, audioStop } = Uislice.actions;
 
 export default Uislice.reducer;

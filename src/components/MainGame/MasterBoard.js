@@ -1,14 +1,21 @@
 import React from "react";
 import GridSquare from "./GridSquare";
 import "./MainGame.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { shapes } from "../../utils/shapes";
+import { audioStop } from "../../Slice/Ui";
+
 
 // Representation of our 20*10 grid
 
 export default function MasterGridBoard({ spectator }) {
+	const dispatch = useDispatch();
 	const store = useSelector((state) => state.game);
-	const { grid, shape, rotation, x, y } = store;
+	const { grid, shape, rotation, x, y, gameOver, winner } = store;
+
+	if (gameOver || winner) {
+		dispatch(audioStop());
+	  }
 
 	const block = shapes[shape][rotation];
 	const blockColor = shape;

@@ -6,6 +6,7 @@ import Controls from "../MainGame/Controls";
 import MasterBoard from "../MainGame/MasterBoard";
 import Popup from "../MainGame/Popup";
 import {
+  gameStarted,
   gameWinner,
   initState,
   moveDown,
@@ -25,7 +26,7 @@ import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import Header from "../MainGame/Header";
-import { onError } from "../../Slice/Ui";
+import { audioPlay, onError } from "../../Slice/Ui"
 
 function GamePage(props) {
   const dispatch = useDispatch();
@@ -106,6 +107,8 @@ function GamePage(props) {
         console.error(data.message);
       } else {
         console.log(data.message);
+        dispatch(gameStarted())
+        dispatch(audioPlay())
       }
     });
   };

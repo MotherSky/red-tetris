@@ -127,31 +127,33 @@ const Rooms = class {
   gameStart(name, speed) {
     this.rooms[name].interval = setInterval(async () => {
       for (const [key, value] of Object.entries(this.rooms[name].players)) {
-        const playerState = value.getPlayer();
+        if (value.gameOver) {
+          const playerState = value.getPlayer();
 
-        // [x] check for game winner and stop the game
-        await this.checkForWinner(name, value.uuid);
+          // [x] check for game winner and stop the game
+          await this.checkForWinner(name, value.uuid);
 
-        /// [x] generate more tetros for the players if one of the players reatch the compilte hes tetros
-        if (
-          value.generatedTetrosIndexer ===
-          this.rooms[name].genaratedTetros.length - 2
-        ) {
-          await this.pushRandoTetros(name);
+          /// [x] generate more tetros for the players if one of the players reatch the compilte hes tetros
+          if (
+            value.generatedTetrosIndexer ===
+            this.rooms[name].genaratedTetros.length - 2
+          ) {
+            await this.pushRandoTetros(name);
+          }
+
+          // [x] add line (n -1) for other users
+          const data = await this.rooms[name].players[value.uuid].moveDown();
+          if (data.comlitedLines) {
+            await this.pushLineToPlayersBoard(
+              data.inRoom,
+              data.uuid,
+              data.comlitedLines
+            );
+            this.rooms[name].players[data.uuid].comlitedLines = 0;
+          }
+
+          this.rooms[name].socket.to(key).emit("moveDown", playerState);
         }
-
-        // [x] add line (n -1) for other users
-        const data = await this.rooms[name].players[value.uuid].moveDown();
-        if (data.comlitedLines) {
-          await this.pushLineToPlayersBoard(
-            data.inRoom,
-            data.uuid,
-            data.comlitedLines
-          );
-          this.rooms[name].players[data.uuid].comlitedLines = 0;
-        }
-
-        this.rooms[name].socket.to(key).emit("moveDown", playerState);
       }
     }, speed);
   }
@@ -196,6 +198,12 @@ const Rooms = class {
         clearInterval(this.rooms[roomName].interval);
       }
       return Object.keys(room.players).length - 1 === lost;
+    }
+    if (Object.keys(room.players).length === 1) {
+      if (Object.values(room.players)[0].gameOver) {
+        room.gameDone = true;
+        clearInterval(this.rooms[roomName].interval);
+      }
     }
     return false;
   }
