@@ -52,11 +52,11 @@ module.exports = {
               success: false,
               message: "You are not the master of the room",
             });
-            return 
+            return;
           }
           if (Rooms.rooms[roomName].interval) {
             cb({ success: false, message: "the game already started" });
-            return
+            return;
           }
           Rooms.gameStart(roomName, 1270);
           cb({ success: true, message: "game is sterted" });
@@ -76,7 +76,6 @@ module.exports = {
 
           // [x] check for game winner and stop the game
           await Rooms.checkForWinner(roomName, userUUID);
-
 
           // [x] generate more tetros for the players if one of the players reatch the compilte hes tetros
           if (
@@ -117,8 +116,13 @@ module.exports = {
         });
 
         socket.on("chat", async (data) => {
-          socket.to(roomName).emit("emox", {emoji: data, uuid: userUUID});
-        })
+          socket.to(roomName).emit("emox", { emoji: data, uuid: userUUID });
+        });
+
+        socket.on("forceDisconnect", function () {
+          console.log(`forceDisconnect ===> [${userUUID} | ${userName}]`);
+          socket.disconnect();
+        });
 
         socket.on("disconnect", async () => {
           console.log(`disconnect user [${userUUID} | ${userName}]`);

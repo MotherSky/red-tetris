@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SpectatorArea from "../MainGame/SpectatorArea";
 import NextBlock from "../MainGame/NextBlock";
 import ScoreBoard from "../MainGame/ScoreBoard";
@@ -26,16 +26,16 @@ import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import Header from "../MainGame/Header";
-import { audioPlay, onError } from "../../Slice/Ui"
+import { audioPlay, onError } from "../../Slice/Ui";
 
-function GamePage(props) {
+function GamePage({ room, username }) {
   const dispatch = useDispatch();
   const userUUID = uuidv4();
   const options = {
     query: {
-      roomName: props.room,
+      roomName: room,
       userUUID,
-      userName: props.username,
+      userName: username,
     },
   };
   let socket = io("http://localhost:5000", options);
@@ -107,8 +107,8 @@ function GamePage(props) {
         console.error(data.message);
       } else {
         console.log(data.message);
-        dispatch(gameStarted())
-        dispatch(audioPlay())
+        dispatch(gameStarted());
+        dispatch(audioPlay());
       }
     });
   };

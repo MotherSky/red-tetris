@@ -10,6 +10,11 @@ function extractInfo(hashURL) {
   return hash.split("[");
 }
 
+window.addEventListener("hashchange", (event) => {
+  console.log("----->", event);
+  window.location.reload();
+});
+
 function MainRoute() {
   useEffect(() => {
     console.log("MainLayout:: constructor");
@@ -21,7 +26,7 @@ function MainRoute() {
   if (pathname === "/" && !hash) {
     return <HomePage />;
   }
-  if (pathname === "/" && hash.match(regexp)) { 
+  if (pathname === "/" && hash.match(regexp)) {
     let [room, username] = extractInfo(hash);
 
     return <GamePage room={room} username={username} />;

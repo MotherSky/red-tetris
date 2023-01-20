@@ -127,7 +127,7 @@ const Rooms = class {
   gameStart(name, speed) {
     this.rooms[name].interval = setInterval(async () => {
       for (const [key, value] of Object.entries(this.rooms[name].players)) {
-        if (value.gameOver) {
+        if (!value.gameOver) {
           const playerState = value.getPlayer();
 
           // [x] check for game winner and stop the game

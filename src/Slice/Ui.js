@@ -6,12 +6,16 @@ audio.loop = true;
 let initialState = {
   errorMsg: null,
   mute: false,
+  userData: undefined,
 };
 
 export const Uislice = createSlice({
   name: "ui",
   initialState: initialState,
   reducers: {
+    setUserData(state, data) {
+      return { ...state, userData: data.payload };
+    },
     initError: (state) => {
       return { ...state, errorMsg: null };
     },
@@ -29,6 +33,7 @@ export const Uislice = createSlice({
   },
 });
 
-export const { initError, onError, audioPlay, audioStop } = Uislice.actions;
+export const { initError, onError, audioPlay, audioStop, setUserData } =
+  Uislice.actions;
 
 export default Uislice.reducer;
