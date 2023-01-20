@@ -10,10 +10,7 @@ function extractInfo(hashURL) {
   return hash.split("[");
 }
 
-window.addEventListener("hashchange", (event) => {
-  console.log("----->", event);
-  window.location.reload();
-});
+
 
 function MainRoute() {
   useEffect(() => {
