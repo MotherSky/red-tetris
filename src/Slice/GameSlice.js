@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { defaultState } from "../utils/utils";
+import gameSound from "./tetris.mp3";
+const audio = new Audio(gameSound);
+audio.loop = true;
 
 //FIXME -- issue in init state
 let initialState = defaultState();
@@ -25,13 +28,14 @@ export const gameSlice = createSlice({
         lines: data.payload.lines,
         winner: undefined,
         emoji: undefined,
-        gameStart: false
+        gameStart: false,
+        mute: false,
       };
       state = newState;
       return state;
     },
 
-    rotate: (state, data) => {
+    update: (state, data) => {
       const newState = {
         ...state,
         grid: data.payload.grid.playground,
@@ -47,63 +51,10 @@ export const gameSlice = createSlice({
         lines: data.payload.lines,
       };
       state = newState;
-      return state;
-    },
 
-    moveRight: (state, data) => {
-      const newState = {
-        ...state,
-        grid: data.payload.grid.playground,
-        shape: data.payload.shape,
-        rotation: data.payload.rotation,
-        x: data.payload.x,
-        y: data.payload.y,
-        nextShape: data.payload.nextShape,
-        score: data.payload.score,
-        gameOver: data.payload.gameOver,
-        uuid: data.payload.uuid,
-        username: data.payload.username,
-        lines: data.payload.lines,
-      };
-      state = newState;
-      return state;
-    },
-
-    moveLeft: (state, data) => {
-      const newState = {
-        ...state,
-        grid: data.payload.grid.playground,
-        shape: data.payload.shape,
-        rotation: data.payload.rotation,
-        x: data.payload.x,
-        y: data.payload.y,
-        nextShape: data.payload.nextShape,
-        score: data.payload.score,
-        gameOver: data.payload.gameOver,
-        uuid: data.payload.uuid,
-        username: data.payload.username,
-        lines: data.payload.lines,
-      };
-      state = newState;
-      return state;
-    },
-
-    moveDown: (state, data) => {
-      const newState = {
-        ...state,
-        grid: data.payload.grid.playground,
-        shape: data.payload.shape,
-        rotation: data.payload.rotation,
-        x: data.payload.x,
-        y: data.payload.y,
-        nextShape: data.payload.nextShape,
-        score: data.payload.score,
-        gameOver: data.payload.gameOver,
-        uuid: data.payload.uuid,
-        username: data.payload.username,
-        lines: data.payload.lines,
-      };
-      state = newState;
+      if (data.payload.gameOver || data.payload.winner) {
+        audio.pause();
+      }
       return state;
     },
 
@@ -117,19 +68,21 @@ export const gameSlice = createSlice({
 
     gameStarted: (state) => {
       return { ...state, gameStart: true };
-    }
+    },
+
+    audioPlay: (state) => {
+      var playPromise = audio.play();
+      console.log(playPromise);
+      return { ...state, mute: false };
+    },
+
+    audioStop: (state) => {
+      audio.pause();
+      return { ...state, mute: true };
+    },
   },
 });
 
-export const {
-  moveRight,
-  moveLeft,
-  moveDown,
-  rotate,
-  restart,
-  initState,
-  gameWinner,
-  gameStarted
-} = gameSlice.actions;
+export const { initState, update, gameWinner, gameStarted, audioPlay, audioStop } = gameSlice.actions;
 
 export default gameSlice.reducer;

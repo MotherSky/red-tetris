@@ -3,7 +3,7 @@ in spectatorArea, the username passed to GridBoard is never used
 in gameSlice: init, rotate, and moves are all the same
 
 errors: 
-// [ ] - page not re-render after chnaging the hash in the first time
+// [x] - page not re-render after chnaging the hash in the first time
 
 mandatory:
 // [x] winner / loser 
@@ -15,6 +15,7 @@ bonus:
 
 // [x] - score
 // [x] - random username
+// [x] - chat emojis
+// [x] - sound in the game
 // [ ] - space to goDown buttom
 // [ ] - Have a persistence of these scores for each player.
-// [ ] - chat emojis

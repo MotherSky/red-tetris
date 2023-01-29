@@ -1,13 +1,12 @@
 import React from "react";
 import "./MainGame.css";
 import { useDispatch, useSelector } from "react-redux";
-import { audioPlay, audioStop } from "../../Slice/Ui";
+import { audioPlay, audioStop } from "../../Slice/GameSlice";
 
 export default function ScoreBoard() {
   const dispatch = useDispatch();
   const store = useSelector((state) => state.game);
-  const mute = useSelector((state) => state.ui.mute);
-  const { score, lines, gameStart, gameOver, winner } = store;
+  const { score, lines, gameStart, gameOver, winner, mute } = store;
 
   const stop = () => {
     if (!mute) {
@@ -17,10 +16,12 @@ export default function ScoreBoard() {
     }
   };
 
+
   return (
     <div className="score-board uppercase">
       <div className="text-zinc-200 text-xl font-bold">Score: {score}</div>
-      <div className="text-zinc-200 text-xl font-bold">Lines: {lines}</div>
+      <div className="text-zinc-200 text-xl font-bold">Lines: {lines}
+      </div>
       {gameStart && !gameOver && !winner ? (
         <button
           className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"

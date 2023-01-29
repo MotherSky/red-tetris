@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SpectatorArea from "../MainGame/SpectatorArea";
 import NextBlock from "../MainGame/NextBlock";
 import ScoreBoard from "../MainGame/ScoreBoard";
@@ -9,10 +9,7 @@ import {
   gameStarted,
   gameWinner,
   initState,
-  moveDown,
-  moveLeft,
-  moveRight,
-  rotate,
+  update,
 } from "../../Slice/GameSlice";
 import { initHeaderState, updateGameMaster } from "../../Slice/HeaderSlice";
 import {
@@ -22,43 +19,26 @@ import {
   deletePlayer,
   showEmoji,
 } from "../../Slice/SpectatorsSlice";
-import { io } from "socket.io-client";
-import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import Header from "../MainGame/Header";
-import { audioPlay, onError } from "../../Slice/Ui";
+import { audioPlay, audioStop } from "../../Slice/GameSlice";
 
-function GamePage({ room, username }) {
+function GamePage({ socket }) {
   const dispatch = useDispatch();
-  const userUUID = uuidv4();
-  const options = {
-    query: {
-      roomName: room,
-      userUUID,
-      userName: username,
-    },
-  };
-  let socket = io("http://localhost:5000", options);
-  // console.log(socket);
-  socket.on("game-error", (message) => {
-    console.log({ message });
-    dispatch(onError(message));
-  });
-
   socket.on("moveLeft", (data) => {
-    dispatch(moveLeft(data));
+    dispatch(update(data));
   });
 
   socket.on("moveRight", (data) => {
-    dispatch(moveRight(data));
+    dispatch(update(data));
   });
 
   socket.on("moveDown", (data) => {
-    dispatch(moveDown(data));
+    dispatch(update(data));
   });
 
   socket.on("moveRotate", (data) => {
-    dispatch(rotate(data));
+    dispatch(update(data));
   });
 
   socket.on("playerTetroCollision", (data) => {
@@ -76,29 +56,33 @@ function GamePage({ room, username }) {
   });
 
   socket.on("playerLeave", (data) => {
-    console.log("playerLeave", data);
+    // console.log("playerLeave", data);
     dispatch(deletePlayer(data));
   });
 
   socket.on("playerJoinedTheRoom", (data) => {
-    console.log("playerJoinedTheRoom", data);
+    // console.log("playerJoinedTheRoom", data);
     dispatch(pushSpectators(data));
-    console.log("push spec: ", data);
   });
 
   socket.on("hostUpdate", (data) => {
-    console.log("hostUpdate", data);
+    // console.log("hostUpdate", data);
     dispatch(updateGameMaster(data));
   });
 
   socket.on("winner", (data) => {
-    console.log("im a winner", data);
+    // console.log("im a winner", data);
     dispatch(gameWinner(data));
   });
 
   socket.on("emox", (data) => {
-    console.log("emit emox", data);
+    // console.log("emit emox", data);
     dispatch(showEmoji(data));
+  });
+
+  socket.on("onPlayMode", () => {
+    dispatch(gameStarted());
+    dispatch(audioStop());
   });
 
   const startGame = () => {
@@ -116,7 +100,7 @@ function GamePage({ room, username }) {
   return (
     <div className=" bg-cubes h-screen v-screen overflow-hidden">
       <div className="grid sm:grid-cols-10 gap-10 font-pixel content-center h-screen">
-        <div className="m-auto sm:col-span-7">
+        {<div className="m-auto sm:col-span-7">
           <Header startGame={startGame} />
           <div className="grid grid-cols-9 gap-2 justify-items-center position-relative">
             <div className=" col-span-2 justify-self-end">
@@ -133,9 +117,9 @@ function GamePage({ room, username }) {
             </div>
             <Popup />
           </div>
-        </div>
+        </div>}
         <div className="sm:col-span-3 overflow-auto hide-scroll">
-          <SpectatorArea></SpectatorArea>
+          <SpectatorArea socket={socket}></SpectatorArea>
         </div>
       </div>
     </div>

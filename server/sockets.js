@@ -59,6 +59,7 @@ module.exports = {
             return;
           }
           Rooms.gameStart(roomName, 1270);
+          socket.to(roomName).emit("onPlayMode");
           cb({ success: true, message: "game is sterted" });
         });
 
