@@ -83,6 +83,14 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { initState, update, gameWinner, gameStarted, audioPlay, audioStop } = gameSlice.actions;
+export const {
+  initState,
+  update,
+  gameWinner,
+  gameStarted,
+  audioPlay,
+  audioStop,
+  restart,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

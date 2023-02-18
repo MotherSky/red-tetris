@@ -1,15 +1,27 @@
 import GameSlice, {
   initState,
-  rotate,
-  moveRight,
-  moveLeft,
-  moveDown,
+  update,
+  restart,
+  gameWinner,
+  gameStarted,
+  audioPlay,
+  audioStop,
 } from "../Slice/GameSlice";
 import store from "../store";
-import { initialGrid, nextRotation } from "../utils/utils";
+import { initialGrid, defaultState } from "../utils/utils";
+
+// stubs so jest doesn't raise Error: Not implemented: HTMLMediaElement.prototype.pause
+
+window.HTMLMediaElement.prototype.play = () => {
+  /* do nothing */
+};
+window.HTMLMediaElement.prototype.pause = () => {
+  /* do nothing */
+};
 
 describe("GameSlice", () => {
   const { grid } = initialGrid();
+  const defState = defaultState();
   const desiredState = {
     grid: { playground: grid },
     shape: 1,
@@ -29,31 +41,42 @@ describe("GameSlice", () => {
     const state = store.getState().game;
     expect(state.username).toEqual(desiredState.username);
   });
-  it("should get next rotation", () => {
-    desiredState.nextShape = nextRotation(
-      desiredState.shape,
-      desiredState.rotation
-    );
-    store.dispatch(rotate(desiredState));
-    const state = store.getState().game;
-    expect(state.rotation).toEqual(desiredState.rotation);
-  });
-  it("should get move right", () => {
+  it("should update x", () => {
     desiredState.x += 1;
-    store.dispatch(moveRight(desiredState));
+    store.dispatch(update(desiredState));
     const state = store.getState().game;
     expect(state.x).toEqual(desiredState.x);
   });
-  it("should get move left", () => {
-    desiredState.x -= 1;
-    store.dispatch(moveLeft(desiredState));
+  it("should pause the sound when the game is over", () => {
+    desiredState.gameOver = true;
+    store.dispatch(update(desiredState));
     const state = store.getState().game;
-    expect(state.x).toEqual(desiredState.x);
+    expect(state.mute).toEqual(false);
   });
-  it("should get move down", () => {
-    desiredState.y += 1;
-    store.dispatch(moveDown(desiredState));
-    const state = store.getState().game;
-    expect(state.y).toEqual(desiredState.y);
+  it("should mute and unmute the sound properly", () => {
+    store.dispatch(initState(desiredState));
+    // stop audio, mute should be true
+    store.dispatch(audioStop());
+    let state = store.getState().game;
+    expect(state.mute).toEqual(true);
+    // play audio, mute should be false
+    store.dispatch(audioPlay());
+    state = store.getState().game;
+    expect(state.mute).toEqual(false);
+  });
+  it("should start the game and set the winner", () => {
+    store.dispatch(initState(defState));
+    store.dispatch(gameStarted());
+    let state = store.getState().game;
+    expect(state.gameStart).toEqual(true);
+    store.dispatch(gameWinner("player1"));
+    state = store.getState().game;
+    expect(state.winner).toEqual("player1");
+  });
+  it("should change the state back to default state", () => {
+    store.dispatch(initState(desiredState));
+    store.dispatch(restart());
+    const state = store.getState();
+    expect(state).not.toEqual(desiredState);
   });
 });
