@@ -76,7 +76,7 @@ function GamePage({ socket }) {
   });
 
   socket.on("emox", (data) => {
-    // console.log("emit emox", data);
+    console.log("emit emox", data);
     dispatch(showEmoji(data));
   });
 
@@ -100,24 +100,26 @@ function GamePage({ socket }) {
   return (
     <div className=" bg-cubes h-screen v-screen overflow-hidden">
       <div className="grid sm:grid-cols-10 gap-10 font-pixel content-center h-screen">
-        {<div className="m-auto sm:col-span-7">
-          <Header startGame={startGame} />
-          <div className="grid grid-cols-9 gap-2 justify-items-center position-relative">
-            <div className=" col-span-2 justify-self-end">
-              <NextBlock />
+        {
+          <div className="m-auto sm:col-span-7">
+            <Header startGame={startGame} />
+            <div className="grid grid-cols-9 gap-2 justify-items-center position-relative">
+              <div className=" col-span-2 justify-self-end">
+                <NextBlock />
+              </div>
+              <div className=" max-h-fit min-h-fit max-w-fit min-w-fit col-span-5 border border-4 border-gray-500 mb-3">
+                <MasterBoard />
+              </div>
+              <div className="col-span-2 justify-self-end">
+                <ScoreBoard />
+              </div>
+              <div className="col-start-3 col-span-5 m-auto">
+                <Controls socket={socket} />
+              </div>
+              <Popup />
             </div>
-            <div className=" max-h-fit min-h-fit max-w-fit min-w-fit col-span-5 border border-4 border-gray-500 mb-3">
-              <MasterBoard />
-            </div>
-            <div className="col-span-2 justify-self-end">
-              <ScoreBoard />
-            </div>
-            <div className="col-start-3 col-span-5 m-auto">
-              <Controls socket={socket} />
-            </div>
-            <Popup />
           </div>
-        </div>}
+        }
         <div className="sm:col-span-3 overflow-auto hide-scroll">
           <SpectatorArea socket={socket}></SpectatorArea>
         </div>

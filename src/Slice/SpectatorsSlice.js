@@ -32,6 +32,7 @@ export const Spectators = createSlice({
     },
     onCollision: (state, data) => {
       const array = [...state.playersList];
+      //console.log(array);
       let index = array.findIndex((e) => e.uuid === data.payload.uuid);
       if (index >= 0) {
         array[index] = data.payload;
