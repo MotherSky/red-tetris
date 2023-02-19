@@ -33,12 +33,12 @@ export const randomShape = () => {
 export const defaultState = () => {
   return {
     grid: initialGrid(),
-    shape: randomShape(),
+    shape: 0,
     rotation: 0,
     // x:5 and y:-4 to position the shape in the middle top.
     x: 4,
     y: -4,
-    nextShape: randomShape(),
+    nextShape: 0,
     score: 0,
     isRunning: true,
     gameOver: false,
