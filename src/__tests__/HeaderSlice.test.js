@@ -14,7 +14,7 @@ describe("HeaderSlice", () => {
     store.dispatch(initHeaderState(header));
   });
   it("should update the game master", () => {
-    console.log(store.getState().header.gameMaster);
+    // console.log(store.getState().header.gameMaster);
     store.dispatch(updateGameMaster("newMaster"));
     //gamemaster doesn't change?????
     //expect(store.getState().header.uuid).toEqual("newMaster");

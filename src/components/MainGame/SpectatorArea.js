@@ -32,10 +32,10 @@ function SpectatorArea() {
             emoji,
           }) => {
             if (emoji) {
-              console.log("emoji: ", emoji);
+              // console.log("emoji: ", emoji);
               setTimeout(() => {
                 dispatch(hideEmoji(uuid));
-                console.log("emoji hidden");
+                // console.log("emoji hidden");
               }, 4000);
             }
             return (

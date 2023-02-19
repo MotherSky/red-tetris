@@ -48,7 +48,7 @@ export const Spectators = createSlice({
       if (index >= 0) {
         array[index].emoji = data.payload.emoji;
       }
-      console.log("showEmoji specslice: ", data.payload.emoji);
+      // console.log("showEmoji specslice: ", data.payload.emoji);
     },
     hideEmoji: (state, data) => {
       const array = [...state.playersList];
@@ -56,7 +56,7 @@ export const Spectators = createSlice({
       if (index >= 0) {
         array[index].emoji = undefined;
       }
-      console.log("hideEmoji specslice: ");
+      // console.log("hideEmoji specslice: ");
     },
   },
 });

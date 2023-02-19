@@ -18,4 +18,10 @@ bonus:
 // [x] - chat emojis
 // [x] - sound in the game
 // [ ] - space to goDown buttom
+
+loop from down to up 
+possible move true
+add block to grid 
+
+
 // [ ] - Have a persistence of these scores for each player.

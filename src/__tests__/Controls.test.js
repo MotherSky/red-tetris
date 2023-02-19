@@ -72,43 +72,62 @@ describe("Controls", () => {
 
   /* Test if clicking the arrow keys work correctly and emits event */
 
-  it("should go left", () => {
+  it("should show emoji", () => {
     render(
       <Provider store={store}>
         <Controls socket={socket} />
       </Provider>
     );
-    fireEvent.click(screen.getByText("←"));
-    expect(ret).toEqual("goLeft");
+    fireEvent.click(screen.getByText("😀"));
+    expect(ret).toEqual("chat");
   });
 
-  it("should rotate", () => {
+  it("should show emoji", () => {
     render(
       <Provider store={store}>
         <Controls socket={socket} />
       </Provider>
     );
-    fireEvent.click(screen.getByText("↑"));
-    expect(ret).toEqual("rotate");
+    fireEvent.click(screen.getByText("😂"));
+    expect(ret).toEqual("chat");
   });
 
-  it("should go right", () => {
+  it("should show emoji", () => {
     render(
       <Provider store={store}>
         <Controls socket={socket} />
       </Provider>
     );
-    fireEvent.click(screen.getByText("→"));
-    expect(ret).toEqual("goRight");
+    fireEvent.click(screen.getByText("💩"));
+    expect(ret).toEqual("chat");
   });
 
-  it("should go down", () => {
+  it("should show emoji", () => {
     render(
       <Provider store={store}>
         <Controls socket={socket} />
       </Provider>
     );
-    fireEvent.click(screen.getByText("↓"));
-    expect(ret).toEqual("goDown");
+    fireEvent.click(screen.getByText("😱"));
+    expect(ret).toEqual("chat");
+  });
+
+  it("should show emoji", () => {
+    render(
+      <Provider store={store}>
+        <Controls socket={socket} />
+      </Provider>
+    );
+    fireEvent.click(screen.getByText("🤬"));
+    expect(ret).toEqual("chat");
+  });
+  it("should show emoji", () => {
+    render(
+      <Provider store={store}>
+        <Controls socket={socket} />
+      </Provider>
+    );
+    fireEvent.click(screen.getByText("😈"));
+    expect(ret).toEqual("chat");
   });
 });

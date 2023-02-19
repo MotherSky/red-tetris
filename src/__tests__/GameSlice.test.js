@@ -30,7 +30,6 @@ describe("GameSlice", () => {
     y: 19,
     nextShape: 1,
     score: 9999,
-    isRunning: true,
     gameOver: false,
     uuid: "custom",
     username: "user",

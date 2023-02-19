@@ -10,8 +10,5 @@ describe("Scoreboard", () => {
         <ScoreBoard />
       </Provider>
     );
-    fireEvent.click(screen.getByText("PAUSE"));
-    fireEvent.click(screen.getByText("RESUME"));
-    fireEvent.click(screen.getByText("RESTART"));
   });
 });

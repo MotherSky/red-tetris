@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React,{ useState } from "react";
 import GamePage from "../components/Pages/GamePage";
 import HomePage from "../components/Pages/HomePage";
 import { useLocation } from "react-router-dom";
@@ -18,9 +18,6 @@ window.addEventListener("hashchange", (event) => {
 
 function MainRoute() {
   const [error, setError] = useState();
-  useEffect(() => {
-    console.log("MainLayout:: constructor");
-  }, []);
 
   const regexp = /^#\w+\[\w+]$/;
   const { hash, pathname } = useLocation();

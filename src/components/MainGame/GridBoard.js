@@ -6,7 +6,7 @@ import { shapes } from "../../utils/shapes";
 // Representation of our 20*10 grid
 
 export default function GridBoard({ spectator, grid, shape, rotation, x, y }) {
-	console.log('---<', { spectator, grid, shape, rotation, x, y });
+	// console.log('---<', { spectator, grid, shape, rotation, x, y });
 
 	const block = shapes[shape][rotation];
 	const blockColor = shape;

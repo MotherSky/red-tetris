@@ -71,8 +71,9 @@ export const gameSlice = createSlice({
     },
 
     audioPlay: (state) => {
+      // eslint-disable-next-line no-unused-vars
       var playPromise = audio.play();
-      console.log(playPromise);
+      // console.log(playPromise);
       return { ...state, mute: false };
     },
 

@@ -25,65 +25,67 @@ import { audioPlay, audioStop } from "../../Slice/GameSlice";
 
 function GamePage({ socket }) {
   const dispatch = useDispatch();
-  socket.on("moveLeft", (data) => {
-    dispatch(update(data));
-  });
+  if (socket) {
+    socket.on("moveLeft", (data) => {
+      dispatch(update(data));
+    });
 
-  socket.on("moveRight", (data) => {
-    dispatch(update(data));
-  });
+    socket.on("moveRight", (data) => {
+      dispatch(update(data));
+    });
 
-  socket.on("moveDown", (data) => {
-    dispatch(update(data));
-  });
+    socket.on("moveDown", (data) => {
+      dispatch(update(data));
+    });
 
-  socket.on("moveRotate", (data) => {
-    dispatch(update(data));
-  });
+    socket.on("moveRotate", (data) => {
+      dispatch(update(data));
+    });
 
-  socket.on("playerTetroCollision", (data) => {
-    console.log("playerTetroCollision", data);
-    dispatch(onCollision(data));
-  });
+    socket.on("playerTetroCollision", (data) => {
+      console.log("playerTetroCollision", data);
+      dispatch(onCollision(data));
+    });
 
-  socket.on("initState", (data) => {
-    dispatch(initState(data));
-    dispatch(initHeaderState(data));
-  });
+    socket.on("initState", (data) => {
+      dispatch(initState(data));
+      dispatch(initHeaderState(data));
+    });
 
-  socket.on("initSpectatorList", (data) => {
-    dispatch(getSpectatorsList(data));
-  });
+    socket.on("initSpectatorList", (data) => {
+      dispatch(getSpectatorsList(data));
+    });
 
-  socket.on("playerLeave", (data) => {
-    // console.log("playerLeave", data);
-    dispatch(deletePlayer(data));
-  });
+    socket.on("playerLeave", (data) => {
+      // console.log("playerLeave", data);
+      dispatch(deletePlayer(data));
+    });
 
-  socket.on("playerJoinedTheRoom", (data) => {
-    // console.log("playerJoinedTheRoom", data);
-    dispatch(pushSpectators(data));
-  });
+    socket.on("playerJoinedTheRoom", (data) => {
+      // console.log("playerJoinedTheRoom", data);
+      dispatch(pushSpectators(data));
+    });
 
-  socket.on("hostUpdate", (data) => {
-    // console.log("hostUpdate", data);
-    dispatch(updateGameMaster(data));
-  });
+    socket.on("hostUpdate", (data) => {
+      // console.log("hostUpdate", data);
+      dispatch(updateGameMaster(data));
+    });
 
-  socket.on("winner", (data) => {
-    // console.log("im a winner", data);
-    dispatch(gameWinner(data));
-  });
+    socket.on("winner", (data) => {
+      // console.log("im a winner", data);
+      dispatch(gameWinner(data));
+    });
 
-  socket.on("emox", (data) => {
-    console.log("emit emox", data);
-    dispatch(showEmoji(data));
-  });
+    socket.on("emox", (data) => {
+      // console.log("emit emox", data);
+      dispatch(showEmoji(data));
+    });
 
-  socket.on("onPlayMode", () => {
-    dispatch(gameStarted());
-    dispatch(audioStop());
-  });
+    socket.on("onPlayMode", () => {
+      dispatch(gameStarted());
+      dispatch(audioStop());
+    });
+  }
 
   const startGame = () => {
     socket.emit("startGame", {}, (data) => {

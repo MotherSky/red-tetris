@@ -43,7 +43,6 @@ const data = {
   rotation: 0,
   x: 4,
   y: -4,
-  isRunning: true,
   gameOver: false,
   generatedTetros: [3, 2, 3, 4, 6, 7, 6, 2],
   generatedTetrosIndexer: 0,

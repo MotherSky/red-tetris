@@ -40,7 +40,6 @@ export const defaultState = () => {
     y: -4,
     nextShape: 0,
     score: 0,
-    isRunning: true,
     gameOver: false,
     winner: undefined,
     gameStart: false
