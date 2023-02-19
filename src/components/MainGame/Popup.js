@@ -2,9 +2,11 @@ import React from "react";
 import "./MainGame.css";
 import { useSelector } from "react-redux";
 
-export default function Popup() {
+export default function Popup(props) {
   const gameState = useSelector((state) => state.game);
+  const header = useSelector((state) => state.header);
   const { gameOver, winner } = gameState;
+  const { gameMaster } = header;
 
   const messages = {
     over: {
@@ -31,6 +33,10 @@ export default function Popup() {
     messageType = "winner";
   }
 
+  const handleClick = () => {
+    props.restart();
+  };
+
   return (
     //<div className="message-popup">
     <div className={`uppercase message-popup ${hidden} ${messageType}`}>
@@ -40,6 +46,16 @@ export default function Popup() {
       <p className="text-sm sm:text-lg lg:text-2xl">
         {messages[messageType].info}
       </p>
+      {gameMaster ? (
+        <button
+          onClick={handleClick}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold pb-2 pt-4 px-4 rounded"
+        >
+          Restart
+        </button>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

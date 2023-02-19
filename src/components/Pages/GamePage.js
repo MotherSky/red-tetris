@@ -18,6 +18,9 @@ import {
   getSpectatorsList,
   deletePlayer,
   showEmoji,
+  restartSpectatorsList,
+  cleanSpectatorsList,
+  cleanBoards,
 } from "../../Slice/SpectatorsSlice";
 import { useDispatch } from "react-redux";
 import Header from "../MainGame/Header";
@@ -56,6 +59,10 @@ function GamePage({ socket }) {
       dispatch(getSpectatorsList(data));
     });
 
+    socket.on("restartSpectatorList", () => {
+      dispatch(cleanBoards())
+    });
+
     socket.on("playerLeave", (data) => {
       // console.log("playerLeave", data);
       dispatch(deletePlayer(data));
@@ -85,6 +92,11 @@ function GamePage({ socket }) {
       dispatch(gameStarted());
       dispatch(audioStop());
     });
+
+    socket.on("restartInit", (data) => {
+      dispatch(initState(data))
+      startGame()
+    });
   }
 
   const startGame = () => {
@@ -95,6 +107,16 @@ function GamePage({ socket }) {
         console.log(data.message);
         dispatch(gameStarted());
         dispatch(audioPlay());
+      }
+    });
+  };
+
+  const restart = () => {
+    socket.emit("restartGame", {}, (data) => {
+      if (!data.success) {
+        console.error(data.message);
+      } else {
+        console.log(data.message);
       }
     });
   };
@@ -118,7 +140,7 @@ function GamePage({ socket }) {
               <div className="col-start-3 col-span-5 m-auto">
                 <Controls socket={socket} />
               </div>
-              <Popup />
+              <Popup restart={restart} />
             </div>
           </div>
         }

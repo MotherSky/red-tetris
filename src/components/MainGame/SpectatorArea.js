@@ -8,6 +8,7 @@ function SpectatorArea() {
   const store = useSelector((state) => state.spectators);
 
   const playersList = store.playersList;
+  console.log(playersList);
   return (
     <div className="my-12 flex flex-col items-center justify-center ">
       <div>

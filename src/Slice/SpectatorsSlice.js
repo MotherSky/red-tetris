@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { board } from "../utils/intBoard";
 
 let initialState = {
   playersList: [],
@@ -15,6 +16,12 @@ export const Spectators = createSlice({
         players.push(element);
       }
       return { ...state, playersList: players };
+    },
+    cleanBoards: (state) => {
+      // const players = [...state.playersList];
+      for (let i = 0; i < state.playersList?.length; i++) {
+        state.playersList[i].grid.playground = board
+      }
     },
     pushSpectators: (state, data) => {
       const players = [...state.playersList];
@@ -65,6 +72,7 @@ export const {
   pushSpectators,
   onCollision,
   getSpectatorsList,
+  cleanBoards,
   deletePlayer,
   showEmoji,
   hideEmoji,

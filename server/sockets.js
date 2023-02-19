@@ -63,6 +63,22 @@ module.exports = {
           cb({ success: true, message: "game is sterted" });
         });
 
+        socket.on("restartGame", async (data, cb) => {
+          if (Rooms.rooms[roomName].host !== userUUID) {
+            cb({
+              success: false,
+              message: "You are not the master of the room",
+            });
+            return;
+          }
+          if (Rooms.rooms[roomName].interval) {
+            cb({ success: false, message: "interval is used" });
+            return;
+          }
+          Rooms.restartGame(roomName, io);
+          cb({ success: true, message: "restrt the game" });
+        });
+
         socket.on("goLeft", async () => {
           Rooms.rooms[roomName].players[userUUID].moveLeft();
           socket.emit(

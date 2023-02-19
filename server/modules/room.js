@@ -29,7 +29,6 @@ const Rooms = class {
         locked,
         genaratedTetros: RandomTetros(8),
         socket: io,
-        gameDone: false,
       };
       this.rooms[roomName].players[userUUID] = new Player(
         userUUID,
@@ -196,16 +195,36 @@ const Rooms = class {
           .emit("winner", room.players[userUUID].getPlayer());
         room.gameDone = true;
         clearInterval(this.rooms[roomName].interval);
+        this.rooms[roomName].interval = null;
       }
       return Object.keys(room.players).length - 1 === lost;
     }
     if (Object.keys(room.players).length === 1) {
       if (Object.values(room.players)[0].gameOver) {
-        room.gameDone = true;
         clearInterval(this.rooms[roomName].interval);
+        this.rooms[roomName].interval = null;
       }
     }
     return false;
+  }
+
+  restartGame(roomName, io) {
+    const room = this.rooms[roomName];
+    if (Object.keys(room.players).length > 1) {
+      for (const [key, value] of Object.entries(room.players)) {
+        const tmp = new Player(
+          value.uuid,
+          value.username,
+          roomName,
+          io,
+          room.genaratedTetros
+        );
+        delete room.players[value.uuid];
+        room.players[tmp.uuid] = tmp;
+        io.to(tmp.uuid).emit("restartInit", room.players[tmp.uuid].getPlayer());
+      }
+      io.to(roomName).emit("restartSpectatorList");
+    }
   }
 };
 
