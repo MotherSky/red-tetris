@@ -6,7 +6,7 @@ import { audioPlay, audioStop } from "../../Slice/GameSlice";
 export default function ScoreBoard() {
   const dispatch = useDispatch();
   const store = useSelector((state) => state.game);
-  const { score, lines, gameStart, gameOver, winner, mute } = store;
+  const { username, score, lines, gameStart, gameOver, winner, mute } = store;
 
   const stop = () => {
     if (!mute) {
@@ -19,6 +19,7 @@ export default function ScoreBoard() {
 
   return (
     <div className="score-board uppercase">
+      <div className="text-zinc-200 text-xl font-bold">Username: {username}</div>
       <div className="text-zinc-200 text-xl font-bold">Score: {score}</div>
       <div className="text-zinc-200 text-xl font-bold">Lines: {lines}
       </div>

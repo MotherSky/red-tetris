@@ -221,9 +221,17 @@ const Rooms = class {
         );
         delete room.players[value.uuid];
         room.players[tmp.uuid] = tmp;
-        io.to(tmp.uuid).emit("restartInit", room.players[tmp.uuid].getPlayer());
+        const player = room.players[tmp.uuid].getPlayer();
+        player.gameMaster = room.host === tmp.uuid;
+        io.to(tmp.uuid).emit("restartInit", player);
       }
-      io.to(roomName).emit("restartSpectatorList");
+      for (const [key, value] of Object.entries(room.players)) {
+        const currPlayersList = this.getRoomPlayers(roomName, value.uuid);
+        io.to(value.uuid).emit(
+          "restartSpectatorList",
+          currPlayersList
+        );
+      }
     }
   }
 };

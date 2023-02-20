@@ -151,7 +151,7 @@ module.exports = {
           socket.leave(roomName);
         });
       } catch (error) {
-        console.error(error.message);
+        console.log(error.message);
         socket.emit("game-error", error.message);
       }
     });

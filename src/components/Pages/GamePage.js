@@ -18,8 +18,6 @@ import {
   getSpectatorsList,
   deletePlayer,
   showEmoji,
-  restartSpectatorsList,
-  cleanSpectatorsList,
   cleanBoards,
 } from "../../Slice/SpectatorsSlice";
 import { useDispatch } from "react-redux";
@@ -46,7 +44,6 @@ function GamePage({ socket }) {
     });
 
     socket.on("playerTetroCollision", (data) => {
-      console.log("playerTetroCollision", data);
       dispatch(onCollision(data));
     });
 
@@ -59,32 +56,27 @@ function GamePage({ socket }) {
       dispatch(getSpectatorsList(data));
     });
 
-    socket.on("restartSpectatorList", () => {
-      dispatch(cleanBoards())
+    socket.on("restartSpectatorList", (data) => {
+      dispatch(cleanBoards(data))
     });
 
     socket.on("playerLeave", (data) => {
-      // console.log("playerLeave", data);
       dispatch(deletePlayer(data));
     });
 
     socket.on("playerJoinedTheRoom", (data) => {
-      // console.log("playerJoinedTheRoom", data);
       dispatch(pushSpectators(data));
     });
 
     socket.on("hostUpdate", (data) => {
-      // console.log("hostUpdate", data);
       dispatch(updateGameMaster(data));
     });
 
     socket.on("winner", (data) => {
-      // console.log("im a winner", data);
       dispatch(gameWinner(data));
     });
 
     socket.on("emox", (data) => {
-      // console.log("emit emox", data);
       dispatch(showEmoji(data));
     });
 
@@ -94,7 +86,9 @@ function GamePage({ socket }) {
     });
 
     socket.on("restartInit", (data) => {
+      console.log("restartInit",data);
       dispatch(initState(data))
+      dispatch(initHeaderState(data));
       startGame()
     });
   }
@@ -102,7 +96,7 @@ function GamePage({ socket }) {
   const startGame = () => {
     socket.emit("startGame", {}, (data) => {
       if (!data.success) {
-        console.error(data.message);
+        console.log(data.message);
       } else {
         console.log(data.message);
         dispatch(gameStarted());
@@ -114,7 +108,7 @@ function GamePage({ socket }) {
   const restart = () => {
     socket.emit("restartGame", {}, (data) => {
       if (!data.success) {
-        console.error(data.message);
+        console.log(data.message);
       } else {
         console.log(data.message);
       }

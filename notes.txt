@@ -16,12 +16,5 @@ bonus:
 // [x] - score
 // [x] - random username
 // [x] - chat emojis
-// [x] - sound in the game
-// [ ] - space to goDown buttom
-
-loop from down to up 
-possible move true
-add block to grid 
-
-
-// [ ] - Have a persistence of these scores for each player.
+// [x] - sound in the gam
+// [x] - restart the game + players can join the game if it's ended 

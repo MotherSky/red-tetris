@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { board } from "../utils/intBoard";
 
 let initialState = {
   playersList: [],
@@ -17,10 +16,11 @@ export const Spectators = createSlice({
       }
       return { ...state, playersList: players };
     },
-    cleanBoards: (state) => {
-      // const players = [...state.playersList];
-      for (let i = 0; i < state.playersList?.length; i++) {
-        state.playersList[i].grid.playground = board
+    cleanBoards: (state, data) => {
+      state.playersList = [];
+      for (let i = 0; i < data?.payload.length; i++) {
+        const element = data.payload[i];
+        state.playersList.push(element);
       }
     },
     pushSpectators: (state, data) => {
