@@ -1,93 +1,97 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  defaultState,
-  nextRotation,
-  possibleMove,
-  addBlockToGrid,
-  checkRows,
-} from "../utils/utils";
+import { defaultState } from "../utils/utils";
+import gameSound from "./tetris.mp3";
+const audio = new Audio(gameSound);
+audio.loop = true;
 
-const initialState = defaultState();
+//FIXME -- issue in init state
+let initialState = defaultState();
+// eslint-disable-next-line react-hooks/rules-of-hooks
 
 export const gameSlice = createSlice({
   name: "Game",
   initialState: initialState,
   reducers: {
-    rotate: (state) => {
-      const { shape, grid, x, y, rotation } = state;
-      const newRotation = nextRotation(shape, rotation);
-      if (possibleMove(shape, grid, x, y, newRotation)) {
-        state.rotation = newRotation;
-      }
-    },
-
-    moveRight: (state) => {
-      const { shape, grid, x, y, rotation } = state;
-      if (possibleMove(shape, grid, x + 1, y, rotation)) {
-        state.x += 1;
-      }
-    },
-
-    moveLeft: (state) => {
-      const { shape, grid, x, y, rotation } = state;
-      if (possibleMove(shape, grid, x - 1, y, rotation)) {
-        state.x -= 1;
-      }
-    },
-
-    moveDown: (state) => {
-      let { shape, grid, x, y, rotation, nextShape, score } = state;
-      // Get the next potential Y position
-      const maybeY = y + 1;
-
-      // Check if the current block can move here
-      if (possibleMove(shape, grid, x, maybeY, rotation)) {
-        // If so move down don't place the block
-        state.y = maybeY;
-        return state;
-      }
-      // If not place the block
-      // (this returns an object with a grid and gameover bool)
-      const ret = addBlockToGrid(shape, grid, x, y, rotation);
-      const newGrid = ret.grid;
-      const gameOver = ret.gameOver;
-
-      if (gameOver) {
-        // Game Over
-        const newState = { ...state };
-        newState.shape = 0;
-        newState.grid = newGrid;
-        state.gameOver = true;
-        return state;
-      }
-
-      // reset somethings to start a new shape/block
-      state.shape = nextShape;
-      ({ rotation, x, y, nextShape } = defaultState());
-      state.grid = newGrid;
-      state.rotation = rotation;
-      state.x = x;
-      state.y = y;
-      state.nextShape = nextShape;
-      state.score = score + checkRows(newGrid);
+    initState: (state, data) => {
+      let newState = {
+        ...state,
+        grid: data.payload.grid.playground,
+        shape: data.payload.shape,
+        rotation: data.payload.rotation,
+        x: data.payload.x,
+        y: data.payload.y,
+        nextShape: data.payload.nextShape,
+        score: data.payload.score,
+        gameOver: data.payload.gameOver,
+        uuid: data.payload.uuid,
+        username: data.payload.username,
+        lines: data.payload.lines,
+        winner: undefined,
+        emoji: undefined,
+        gameStart: false,
+        mute: false,
+      };
+      state = newState;
       return state;
     },
 
-    resume: (state) => {
-      return { ...state, isRunning: true };
-    },
+    update: (state, data) => {
+      const newState = {
+        ...state,
+        grid: data.payload.grid.playground,
+        shape: data.payload.shape,
+        rotation: data.payload.rotation,
+        x: data.payload.x,
+        y: data.payload.y,
+        nextShape: data.payload.nextShape,
+        score: data.payload.score,
+        gameOver: data.payload.gameOver,
+        uuid: data.payload.uuid,
+        username: data.payload.username,
+        lines: data.payload.lines,
+      };
+      state = newState;
 
-    pause: (state) => {
-      return { ...state, isRunning: false };
+      if (data.payload.gameOver || data.payload.winner) {
+        audio.pause();
+      }
+      return state;
     },
 
     restart: () => {
       return defaultState();
     },
+
+    gameWinner: (state, data) => {
+      return { ...state, winner: data.payload };
+    },
+
+    gameStarted: (state) => {
+      return { ...state, gameStart: true };
+    },
+
+    audioPlay: (state) => {
+      // eslint-disable-next-line no-unused-vars
+      var playPromise = audio.play();
+      // console.log(playPromise);
+      return { ...state, mute: false };
+    },
+
+    audioStop: (state) => {
+      audio.pause();
+      return { ...state, mute: true };
+    },
   },
 });
 
-export const { moveRight, moveLeft, moveDown, rotate, pause, resume, restart } =
-  gameSlice.actions;
+export const {
+  initState,
+  update,
+  gameWinner,
+  gameStarted,
+  audioPlay,
+  audioStop,
+  restart,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

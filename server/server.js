@@ -1,13 +1,24 @@
-const io = require("socket.io")(3001, {
-  cors: {
-    origin: ["http://localhost:3000"],
-  },
+const express = require("express");
+const cors = require("cors");
+const app = express();
+const server = require("http").Server(app);
+const sockets = require("./sockets");
+require("dotenv").config();
+
+let io = sockets.startSocketServer(server);
+
+app.set("socketio", io);
+
+app.use(cors());
+
+const router = express.Router();
+app.use("/", router);
+
+router.use((req, res) => {
+	console.log("ROUTER 404");
+	return res.status(404).json({ err: "404" });
 });
 
-io.on("connection", (socket) => {
-  socket.on("init-game", (username, room) => {
-    console.log(username, room);
-  });
-
-  socket.emit("send-game", "This is the game object");
-});
+const PORT = process.env.PORT || 80;
+server.listen(PORT);
+console.log(`Started on ${PORT}`);

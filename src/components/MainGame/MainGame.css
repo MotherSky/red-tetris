@@ -132,6 +132,10 @@
   text-align: center;
 }
 
+.message-popup.winner {
+  background-color: rgba(135, 219, 114, 0.853) !important;
+}
+
 .message-popup.hidden {
   display: none;
 }

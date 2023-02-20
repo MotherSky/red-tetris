@@ -1,83 +1,111 @@
+//ZABII -- this file need to recheck
 import React from "react";
-
-// import { moveDown, moveLeft, moveRight, rotate } from "../../actions";
-import { moveDown, moveLeft, moveRight, rotate } from "../../Slice/GameSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Controls(props) {
-  const dispatch = useDispatch();
-  const isRunning = useSelector((state) => state.isRunning);
-  const gameOver = useSelector((state) => state.gameOver);
+  const gameState = useSelector((state) => state.game);
+  const { gameStart, gameOver, winner } = gameState;
 
   document.onkeydown = checkKey;
 
   function checkKey(e) {
     e = e || window.event;
     if (e.keyCode === 37) {
-      if (isRunning && !gameOver) {
-        dispatch(moveLeft());
+      if (gameStart && !gameOver && !winner) {
+        props.socket.emit("goLeft");
       }
     } else if (e.keyCode === 38) {
-      if (isRunning && !gameOver) {
-        dispatch(rotate());
+      if (gameStart && !gameOver && !winner) {
+        props.socket.emit("rotate");
       }
     } else if (e.keyCode === 39) {
-      if (isRunning && !gameOver) {
-        dispatch(moveRight());
+      if (gameStart && !gameOver && !winner) {
+        props.socket.emit("goRight");
       }
     } else if (e.keyCode === 40) {
-      if (isRunning && !gameOver) {
-        dispatch(moveDown());
+      if (gameStart && !gameOver && !winner) {
+        props.socket.emit("goDown");
       }
     }
   }
 
+  
+
   return (
     <div className="controls">
-      <button
-        disabled={!isRunning || gameOver}
-        className="control-button left-button"
-        onClick={(e) => {
-          if (isRunning && !gameOver) {
-            dispatch(moveLeft());
-          }
-        }}
-      >
-        ←
-      </button>
-      <button
-        disabled={!isRunning || gameOver}
-        className="control-button right-button"
-        onClick={(e) => {
-          if (isRunning && !gameOver) {
-            dispatch(moveRight());
-          }
-        }}
-      >
-        →
-      </button>
-      <button
-        disabled={!isRunning || gameOver}
-        className="control-button up-button"
-        onClick={(e) => {
-          if (isRunning && !gameOver) {
-            dispatch(rotate());
-          }
-        }}
-      >
-        ↑
-      </button>
-      <button
-        disabled={!isRunning || gameOver}
-        className="control-button down-button"
-        onClick={(e) => {
-          if (isRunning && !gameOver) {
-            dispatch(moveDown());
-          }
-        }}
-      >
-        ↓
-      </button>
+      <div className="flex space-x-2 justify-center">
+        <div>
+          <h1 className="m-5 text-zinc-200 text-2xl uppercase text-center">
+            emox chat
+          </h1>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-blue-600 text-white text-xs  uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (gameStart && !gameOver && !winner) {
+                props.socket.emit("chat", "😀");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>😀</span>
+          </button>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-purple-600 text-white font-medium text-xs  uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (gameStart && !gameOver && !winner) {
+                props.socket.emit("chat", "😂");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>😂</span>
+          </button>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-green-500 text-white font-medium text-xs  uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (gameStart && !gameOver && !winner) {
+                props.socket.emit("chat", "💩");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>💩</span>
+          </button>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-red-600 text-white font-medium text-xs  uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (gameStart && !gameOver && !winner) {
+                props.socket.emit("chat", "😱");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>😱</span>
+          </button>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-yellow-500 text-white font-medium text-xs  uppercase rounded shadow-md hover:bg-yellow-600 hover:shadow-lg focus:bg-yellow-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-700 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (gameStart && !gameOver && !winner) {
+                props.socket.emit("chat", "🤬");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>🤬</span>
+          </button>
+          <button
+            type="button"
+            className="inline-block px-4 py-2.5 bg-blue-400 text-white font-medium text-xs  uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
+            onClick={(e) => {
+              if (gameStart && !gameOver && !winner) {
+                props.socket.emit("chat", "😈");
+              }
+            }}
+          >
+            <span style={{fontSize: "39px"}}>😈</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
