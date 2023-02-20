@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import MainRoute from "../Router/MainRoute";
 import store from "../store";
 import "setimmediate";
+
 
 /* simple render test */
 

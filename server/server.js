@@ -19,6 +19,6 @@ router.use((req, res) => {
 	return res.status(404).json({ err: "404" });
 });
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 5000;
 server.listen(PORT);
 console.log(`Started on ${PORT}`);
