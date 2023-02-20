@@ -37,6 +37,7 @@
   --color-5: #00ff00;
   --color-6: #66ccff;
   --color-7: #ff0000;
+  --color-8: #010000;
 
   /* Button Colors */
 
@@ -85,6 +86,10 @@
 
 .color-7 {
   background-color: var(--color-7);
+}
+
+.color-8 {
+  background-color: var(--color-8);
 }
 
 body {
