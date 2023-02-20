@@ -86,7 +86,6 @@ function GamePage({ socket }) {
     });
 
     socket.on("restartInit", (data) => {
-      console.log("restartInit",data);
       dispatch(initState(data))
       dispatch(initHeaderState(data));
       startGame()

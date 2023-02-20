@@ -1,9 +1,13 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import Controls from "../components/MainGame/Controls";
+import { gameStarted } from "../Slice/GameSlice";
 import store from "../store";
 
 describe("Controls", () => {
+  beforeAll(() => {
+    store.dispatch(gameStarted());
+  });
   it("should render without crashing", () => {
     render(
       <Provider store={store}>

@@ -1,11 +1,3 @@
-import { shapes } from "./shapes";
-
-//generate random number in range(min, max)
-
-export const random = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
 //generate the initial grid
 
 export const initialGrid = () => {
@@ -20,12 +12,6 @@ export const initialGrid = () => {
     }
   }
   return array;
-};
-
-//generate random shape
-
-export const randomShape = () => {
-  return random(1, shapes.length - 1);
 };
 
 // return the default state of the game
